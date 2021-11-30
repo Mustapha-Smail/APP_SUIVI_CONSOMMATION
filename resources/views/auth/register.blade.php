@@ -2,7 +2,11 @@
 
 @section('content')
 
-    <div class="container">
+    @if($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+    @endif
+
+    <div class="container auth">
         <form action="{{route('register')}}" method="POST" class="w-50 shadow form">
             <!-- Coordonnées -->
             @csrf
@@ -14,14 +18,14 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="text" name="nom" id="nom" class="form-control" placeholder="Votre nom" required>
+                        <input type="text" name="nom" id="nom_register" class="form-control" placeholder="Votre nom" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Votre prenom"
+                        <input type="text" name="prenom" id="prenom_register" class="form-control" placeholder="Votre prenom"
                             required>
                     </div>
                     <div class="form-group">
-                        <input type="date" name="date_naissance" id="date_naissance" class="form-control"
+                        <input type="date" name="date_naissance" id="date_naissance_register" class="form-control"
                             placeholder="Votre date de naissance" required aria-describedby="HelpDateNaisance">
                         <small id="helpDateNaissance" class="text-muted">Votre date de naissance</small>
                     </div>
@@ -37,7 +41,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="tel" name="num_tel" id="num_tel" class="form-control" pattern="[0]{1}[0-9]{9}"
+                        <input type="tel" name="num_tel" id="num_tel_register" class="form-control" pattern="[0]{1}[0-9]{9}"
                             required placeholder="Votre numéro de téléphone" aria-describedby="helpNumTel">
                         <small id="helpNumTel" class="text-muted">Format: 0XXXXXXXXX</small>
                     </div>
@@ -53,7 +57,7 @@
                          <h3>2- Identifiants</h3>
                      </div>
                  </div>
-                 <div class="card-body d-none" id="identifiants-card">
+                 <div class="card-body d-none" id="identifiants-card-register">
                      <div class="form-group">
                          <input type="email" name="email" id="email" class="form-control" placeholder="Votre email"
                              required>
@@ -74,30 +78,5 @@
              </div>
         </form>
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-
-    <script>
-        (function () {
-            let data = $('#nom, #prenom, #date_naissance,#num_tel');
-            data.keyup(() => {
-                let empty = false
-                Array.from(data).forEach(element => {
-                    if (element.value === '') {
-                        empty = true;
-                    }
-                });
-
-                if (empty) {
-                    $('#identifiants-card').addClass('d-none');
-                } else {
-                    $('#identifiants-card').removeClass('d-none');
-                }
-            });
-        })();
-    </script>
 
 @endsection

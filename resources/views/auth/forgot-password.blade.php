@@ -2,48 +2,37 @@
 
 @section('content')
     
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
-                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you a link to reset your password!</p>
-                                    </div>
-                                    <form class="user text-center" method="POST" action="{{route('password.email')}}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                            id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
-                                        </div>
-                                        <br>
-                                        <button type="submit" class="btn inscrire btn-md btn-user btn-block">
-                                            Reset Password
-                                        </button>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="{{route('register')}}">Create an Account!</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="{{route('login')}}">Already have an account? Login!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+     <div class="container auth">
+        <form method="POST" action="{{ route('password.email') }}" class="w-75 shadow form">
+            @csrf
+
+            <!-- Connexion -->
+
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>
+                        Réinitialisation mot de passe
+                    </h3>
                 </div>
-
+                <div class="card-body">
+                    <div class="form-group">
+                        Mot de passe oublié? Aucun problème.
+                        <br> Communiquez-nous simplement votre adresse e-mail et nous
+                        vous enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en
+                        choisir un nouveau.
+                    </div>
+                    <div class="form-group">
+                      <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group text-right login-div">
+                        <button type="submit" class="btn btn-connexion">
+                            RÉINITIALISER
+                        </button>
+                    </div>
+                    
+                </div>
             </div>
-            
-        </div>
-
+        </form>
     </div>
     
 @endsection

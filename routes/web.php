@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VilleController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,11 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('accueil');
-})->name('accueil');
+})->middleware(['guest'])->name('accueil');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
+Route::get('/profile', [DashboardController::class, 'profile'])->middleware(['auth','verified'])->name('profile');
 
 require __DIR__.'/auth.php';
 

@@ -13,12 +13,10 @@
             </li>
         </ul>
         
-        @guest
         <div class="nav-btn">
             <a class="btn connecter" href="{{route('login')}}">Se connecter</a>
             <a class="btn inscrire" href="{{route('register')}}">S'inscrire</a>    
         </div>
-        @endguest
 
     </div>
 </nav>
