@@ -2,102 +2,102 @@
 
 @section('content')
 
-    <div class="container-sm">
-        <form class="form-signin" method="POST" action="">
+    <div class="container">
+        <form action="{{route('register')}}" method="POST" class="w-50 shadow form">
+            <!-- Coordonnées -->
             @csrf
-            <h1 class="h3 mb-3 font-weight-normal text-center">Inscription</h1>
-            
-            {{-- Coordonnées --}}
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>
+                        1- Coordonnées
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" name="nom" id="nom" class="form-control" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Votre prenom"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="date_naissance" id="date_naissance" class="form-control"
+                            placeholder="Votre date de naissance" required aria-describedby="HelpDateNaisance">
+                        <small id="helpDateNaissance" class="text-muted">Votre date de naissance</small>
+                    </div>
+                    <div class="form-group">
+                        <small class="text-muted">
+                            Genre: 
+                        </small>
+                        <select name="genre" id="genre" class="form-select" aria-label="Default select example" required
+                            autofocus="">
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="O">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="num_tel" id="num_tel" class="form-control" pattern="[0]{1}[0-9]{9}"
+                            required placeholder="Votre numéro de téléphone" aria-describedby="helpNumTel">
+                        <small id="helpNumTel" class="text-muted">Format: 0XXXXXXXXX</small>
+                    </div>
 
-            <label for="nom" class="sr-only">Nom</label>
-            <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom" required autofocus>
-            <br>
+                </div>
+            </div>
 
-            <label for="prenom" class="sr-only">Prénom</label>
-            <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom" required autofocus>
-            <br>
+             <!-- Identifiants -->
 
-            <label for="date_naissance" class="sr-only">Date de naissance</label>
-            <input type="date" name="date_naissance" id="date_naissance" class="form-control" placeholder="Date de naissance" required autofocus>
-            <br>
-
-            <label class="checkbox mb-3 sr-only">Genre</label>
-            <select name="genre" id="genre" class="form-select" aria-label="Default select example" required autofocus>
-                <option value="M">Homme</option>
-                <option value="F">Femme</option>
-                <option value="O">Autre</option>
-            </select>
-            <br>
-
-            <label for="num_tel" class="sr-only">Numéro de téléphone</label>
-            <input type="tel" name="num_tel" id="num_tel" class="form-control" placeholder="Numéro de téléphone" pattern="[0]{1}[0-9]{9}" required autofocus>
-            <small>Format: 0XXXXXXXXX</small>
-            <br>
-
-            {{-- Adresse --}}
-            <hr><br>
-
-            <label for="num_maison" class="sr-only">N°</label>
-            <input type="number" name="num_maison" id="num_maison" class="form-control" placeholder="N°" required autofocus>
-            <br>
-
-            <label for="nom_rue" class="sr-only">Nom de rue</label>
-            <input type="text" name="nom_rue" id="nom_rue" class="form-control" placeholder="Nom de rue" required autofocus>
-            <br>
-
-            <label for="code_postal" class="sr-only">Code postal</label>
-            <input type="number" name="code_postal" id="code_postal" class="form-control" placeholder="Code postal" pattern="[0-9]{5}" required autofocus onchange="hun()">
-            <br>
-
-            <input type="text" id="ville" class="form-control" placeholder="ville" name="ville"  disabled>
-            
-            {{-- <label for="ville" class="sr-only">Ville</label>
-            <input type="text" name="ville" id="ville" class="form-control" placeholder="Ville" required autofocus>
-            <br>
-
-            <label class="checkbox mb-3 sr-only">Departement</label>
-            <select name="departement" id="departement" class="form-select" aria-label="Default select example" required autofocus>
-                @forelse ($departements as $departement)
-                    <option value={{$departement->id}}>
-                        {{$departement->code}} - {{$departement->name}}
-                    </option>
-                @empty
-                    <option value="none">aucun</option>
-                @endforelse
-            </select> --}}
-            <br>
-
-
-            {{-- IDs --}}
-            <hr><br>
-
-            <label for="email" class="sr-only">Adresse mail</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Adresse mail" required autofocus>
-            <br>
-
-            <label for="password" class="sr-only">Mot de passe</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
-            <br>
-
-
-            <button class="btn btn-lg inscrire" type="submit">S'inscrire</button>
+             <div class="card text-left">
+                 <div class="card-header">
+                     <div class="d-inline float-left">
+                         <h3>2- Identifiants</h3>
+                     </div>
+                 </div>
+                 <div class="card-body d-none" id="identifiants-card">
+                     <div class="form-group">
+                         <input type="email" name="email" id="email" class="form-control" placeholder="Votre email"
+                             required>
+                     </div>
+                     <div class="form-group">
+                         <input type="password" name="password" id="password" class="form-control"
+                             placeholder="Votre mot de passe" required>
+                     </div>
+                     <div class="form-group">
+                         <input type="password" name="password_confirmation" id="password_confirmation"
+                             class="form-control" placeholder="Confirmez votre mot de passe" required>
+                     </div>
+                     <br>
+                     <div class="form-group d-inline float-right">
+                         <button type="submit" class="btn btn-lg btn-connexion">Créer</button>
+                     </div>
+                 </div>
+             </div>
         </form>
-        <br>
     </div>
-    <script>
-        // var villes = {{json_encode($villes)}}; 
-        var villes = {!! json_encode($villes->toArray(), JSON_HEX_TAG) !!};
-        function hun(){
-            // var v = {{json_encode($villes)}}
-            console.log('Hello');
-            villes.forEach(element => {
-                    console.log('inner hello');
 
-                if (element.code_postal === document.getElementById('code_postal').value) {
-                    document.getElementById("ville").value = "My value";
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+
+    <script>
+        (function () {
+            let data = $('#nom, #prenom, #date_naissance,#num_tel');
+            data.keyup(() => {
+                let empty = false
+                Array.from(data).forEach(element => {
+                    if (element.value === '') {
+                        empty = true;
+                    }
+                });
+
+                if (empty) {
+                    $('#identifiants-card').addClass('d-none');
+                } else {
+                    $('#identifiants-card').removeClass('d-none');
                 }
             });
-        }
+        })();
     </script>
 
 @endsection

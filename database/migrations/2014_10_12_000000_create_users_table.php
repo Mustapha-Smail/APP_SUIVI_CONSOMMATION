@@ -26,7 +26,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('num_tel'); 
             $table->timestamps();
-            $table->boolean('admin')->default(0); 
+            $table->boolean('admin')->default(0);
+            $table->boolean('activite')->default(1); 
         });
     }
 

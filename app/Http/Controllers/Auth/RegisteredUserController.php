@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Ville;
 use App\Models\Departement;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
@@ -37,15 +39,26 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'nom' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:255'],
+            'date_naissance' => ['required', 'date', 'before:-18 years'],
+            'genre' => ['required'],
+            'num_tel' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'identifiant' => Str::random(8),
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'date_naissance' => $request->date_naissance,
+            'genre' => $request->genre,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'num_tel' => $request->num_tel,
+            'created_at' => Carbon::now()->timestamp,
+            'updated_at' => Carbon::now()->timestamp,
         ]);
 
         event(new Registered($user));
