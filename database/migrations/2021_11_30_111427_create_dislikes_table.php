@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMaisonsTable extends Migration
+class CreateDislikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMaisonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('maisons', function (Blueprint $table) {
+        Schema::create('dislikes', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
-            $table->foreignId('adresse_id')->constrained()->onDelete('CASCADE');  
+            $table->foreignId('user_id')->constrained(); 
+            $table->foreignId('video_id')->constrained(); 
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMaisonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('maisons');
+        Schema::dropIfExists('dislikes');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdressesTable extends Migration
+class CreateAppareilmatieresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateAdressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('adresses', function (Blueprint $table) {
+        Schema::create('appareilmatieres', function (Blueprint $table) {
             $table->id();
-            $table->integer('num_maison'); 
-            $table->string('nom_rue'); 
-            $table->integer('code_postal'); 
-            $table->foreignId('ville_id')->constrained()->onDelete('CASCADE'); 
-            $table->integer('num_boite')->default(null); 
+            $table->foreignId('appareil_id')->constrained(); 
+            $table->foreignId('matiere_id')->constrained(); 
+            $table->integer('conso_emission_heure'); 
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateAdressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adresses');
+        Schema::dropIfExists('appareilmatieres');
     }
 }

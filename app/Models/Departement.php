@@ -2,10 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Ville;
+use App\Models\Region;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Departement extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nom', 
+        'code', 
+        'region_id'
+
+    ];
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class); 
+    }
+
+    public function villes()
+    {
+        return $this->hasMany(Ville::class); 
+    }
 }
