@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Models\Adresse;
+use App\Models\Locataire;
+use App\Models\Commentaire;
+use App\Models\Proprietaire;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -48,4 +51,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function proprietaires(){
+        return $this->hasMany(Proprietaire::class); 
+    }
+
+    public function locataires(){
+        return $this->hasMany(Locataire::class); 
+    }
+
+    public function commentaires(){
+        return $this->hasMany(Commentaire::class); 
+    }
+
+    // LIKE DISLIKE VUE A REVOIR 
+    
 }

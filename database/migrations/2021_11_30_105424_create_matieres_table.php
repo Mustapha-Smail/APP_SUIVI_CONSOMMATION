@@ -15,6 +15,7 @@ class CreateMatieresTable extends Migration
     {
         Schema::create('matieres', function (Blueprint $table) {
             $table->id();
+            $table->boolean('ressource'); 
             $table->string('libelle'); 
             $table->string('description');
             $table->integer('valeur_min'); 
