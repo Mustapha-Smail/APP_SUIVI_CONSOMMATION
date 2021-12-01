@@ -11,6 +11,11 @@ class Proprietaire extends Model
 {
     use HasFactory;
 
+    protected $dates = [
+        'debut_possession',
+        'fin_possession',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class); 
     }

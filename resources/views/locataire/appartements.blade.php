@@ -2,36 +2,36 @@
 
 @section('content')
     
-    <div class="container">
+<div class="container">
         <div class="container-body">
             <div class="row">
-                <small class="col-sm-12 pb-2">
-                    <a href="{{route('accueil')}}">Accueil</a>/
-                </small>
-                <div class="col-sm-12 pb-3">
-                    <h1>Hello {{$user->prenom}} !</h1>
-                </div>
-                <div class="col-sm-12 pb-3">
-                    <div class="row justify-content-end">
-                        <div class="col-4 pr-3">
-                            <button class="btn btn-lg btn-primary float-right">Ajouter un appartement</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="{{route('proprietaire.maisons')}}" class="btn btn-lg btn-success">
-                                Mes propriétés
+                    @forelse ($appartements as $appartement)
+                        <div class="card w-100 shadow">
+                        <div class="card-header">
+                            {{$appartement->num_boite}}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h6>{{App\Models\Typeappartement::find($appartement->typeappartement_id)->libelle}}</h6>
+                                <p>{{$appartement->nombre_habitants}} habitants</p>
+                            </div>
+                            <p class="card-text">
+                                Loué depuis, {{ Carbon\Carbon::parse($appartement->debut_location)->format('Y-m-d') }}
+                            </p>
+                            <a href="{{route('locataire.pieces', [$appartement->id])}}" class="btn btn-primary float-right">
+                                Pièces
+                                <span class="material-icons">
+                                    forward
+                                </span>
                             </a>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="{{route('locataire.appartements')}}" class="btn btn-lg btn-success">
-                                Mes locations
-                            </a>
-                        </div>
-                    </div>
-                    
+                    </div><br>
+                    @empty
+                        <center>
+                        <button class="btn btn-lg btn-success">Ajouter un appartement</button>
+                        </center>
+                    @endforelse
                 </div>
                 <div class="col-sm-3">
                     <div class="card w-100 shadow">
@@ -58,5 +58,6 @@
             </footer>
         </div>
     </div>
+    
 
 @endsection

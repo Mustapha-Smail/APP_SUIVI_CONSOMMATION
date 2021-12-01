@@ -5,33 +5,31 @@
     <div class="container">
         <div class="container-body">
             <div class="row">
-                <small class="col-sm-12 pb-2">
-                    <a href="{{route('accueil')}}">Accueil</a>/
-                </small>
-                <div class="col-sm-12 pb-3">
-                    <h1>Hello {{$user->prenom}} !</h1>
-                </div>
-                <div class="col-sm-12 pb-3">
-                    <div class="row justify-content-end">
-                        <div class="col-4 pr-3">
-                            <button class="btn btn-lg btn-primary float-right">Ajouter un appartement</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="{{route('proprietaire.maisons')}}" class="btn btn-lg btn-success">
-                                Mes propriétés
+                    @forelse ($pieces as $piece)
+                        <div class="card w-100 shadow">
+                        <div class="card-header">
+                            {{$piece->libelle}}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h6>{{App\Models\Typepiece::find($piece->typepiece_id)->libelle}}</h6>
+                            </div>
+                            <p class="card-text">
+                                {{App\Models\Appartement::find($piece->appartement_id)->num_boite}}
+                            </p>
+                            <a href="#" class="btn btn-primary float-right">
+                                <span class="material-icons">
+                                    forward
+                                </span>
                             </a>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="{{route('locataire.appartements')}}" class="btn btn-lg btn-success">
-                                Mes locations
-                            </a>
-                        </div>
-                    </div>
-                    
+                    </div><br>
+                    @empty
+                        <center>
+                        <button class="btn btn-lg btn-success">Ajouter un appartement</button>
+                        </center>
+                    @endforelse
                 </div>
                 <div class="col-sm-3">
                     <div class="card w-100 shadow">

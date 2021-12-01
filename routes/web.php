@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LocataireController;
+use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\VilleController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +21,17 @@ Route::get('/', function () {
     return view('accueil');
 })->middleware(['guest'])->name('accueil');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
+// DASHBOARD Gle
 Route::get('/profile', [DashboardController::class, 'profile'])->middleware(['auth','verified'])->name('profile');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
+
+// PROPRIETAIRE 
+Route::get('/maisons', [ProprietaireController::class, 'index'])->middleware(['auth','verified'])->name('proprietaire.maisons');
+Route::get('/appartements/{maison_id}', [ProprietaireController::class, 'appartements'])->middleware(['auth','verified'])->name('proprietaire.appartements');
+
+// LOCATAIRES 
+Route::get('/appartements', [LocataireController::class, 'index'])->middleware(['auth','verified'])->name('locataire.appartements');
+Route::get('/pieces/{appartement_id}', [LocataireController::class, 'pieces'])->middleware(['auth','verified'])->name('locataire.pieces');
 
 require __DIR__.'/auth.php';
 
