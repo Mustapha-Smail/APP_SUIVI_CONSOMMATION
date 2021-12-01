@@ -1,6 +1,17 @@
 @extends('layouts/app')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="container auth pd-3">
+            <ul class="text-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     
      <div class="container auth">
         <form method="POST" action="{{ route('password.email') }}" class="w-75 shadow form">

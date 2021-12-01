@@ -6,10 +6,10 @@
         <div class="container-body">
             <div class="row">
                 <small class="col-sm-12 pb-2">
-                    you are here
+                    <a href="{{route('accueil')}}">Accueil</a>/
                 </small>
                 <div class="col-sm-12 pb-3">
-                    <h1>Hello User!</h1>
+                    <h1>Hello {{$user->prenom}} !</h1>
                 </div>
                 <div class="col-sm-12 pb-3">
                     <div class="row justify-content-end">

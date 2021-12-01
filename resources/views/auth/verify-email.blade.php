@@ -1,7 +1,6 @@
 @extends('layouts/app')
 
 @section('content')
-    
     <div class="container auth">
         <form method="POST" action="{{ route('verification.send') }}" class="w-75 shadow form">
             @csrf

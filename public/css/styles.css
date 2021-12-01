@@ -103,7 +103,7 @@ h6 {
     background-position: 50% 50%;
     width: 100vw;
     height: 90vh;
-    padding: 5%;
+    /* padding-left: 5%;  */
     display: flex;
     justify-content: left;
     align-items: center;

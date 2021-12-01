@@ -85,9 +85,17 @@ h6 {
     width: 100%;
 }
 
-.side-menu li:hover {
+.side-menu li:hover,
+.side-menu li a:hover {
     background-color: var(--color-2);
     color: var(--color-4)
+}
+
+.side-menu li a {
+    font-size: 1.5rem;
+    color: var(--color-2);
+    text-decoration: none; 
+    font-family: var(--font-corps); 
 }
 
 

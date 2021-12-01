@@ -2,8 +2,14 @@
 
 @section('content')
 
-    @if($errors->any())
-        {{ implode('', $errors->all('<div>:message</div>')) }}
+    @if ($errors->any())
+        <div class="container auth pd-3">
+            <ul class="text-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <div class="container auth">

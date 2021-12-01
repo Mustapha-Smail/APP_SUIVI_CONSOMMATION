@@ -1,6 +1,16 @@
 @extends('layouts/app')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="container auth pd-3">
+            <ul class="text-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     
     <div class="container auth">
         <form method="POST" action="{{ route('password.update') }}" class="w-75 shadow form">
@@ -27,7 +37,7 @@
                             placeholder="Mot de passe" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password_confirmation id="password_confirmation class="form-control"
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
                             placeholder="Confirmer mot de passe" required>
                     </div>
                     

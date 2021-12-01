@@ -18,7 +18,6 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-            <a class="dropdown-item" href="#">Settings</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="dropdown-item" type="submit">Log out</button>
