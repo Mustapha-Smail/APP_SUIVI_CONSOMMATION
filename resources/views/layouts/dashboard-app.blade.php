@@ -1,8 +1,8 @@
-@include('partials/dashboard-header')
-@include('partials/dashboard-side-menu')
-@include('partials/dashboard-navbar')
+@include('partials/dashboard/dashboard-header')
+@include('partials/dashboard/dashboard-side-menu')
+@include('partials/dashboard/dashboard-navbar')
 
 {{-- @yield('side-menu') --}}
 @yield('content')
 
-@include('partials/dashboard-footer')
+@include('partials/dashboard/dashboard-footer')
