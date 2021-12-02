@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Identifiant / email" required>
+                        <input type="text" name="login" id="login" class="form-control" placeholder="Identifiant / email" value="{{ old('username') ?: old('email') }}" required autofocus>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"
