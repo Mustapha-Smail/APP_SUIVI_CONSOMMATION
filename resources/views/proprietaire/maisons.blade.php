@@ -5,6 +5,15 @@
     <div class="container">
         <div class="container-body">
             <div class="row">
+                <div class="col-12">
+                    <a href="{{ url()->previous() }}" class="text-dark">
+                        <span class="material-icons">
+                            arrow_back
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-12 pb-3">
                     <div class="row justify-content-end">
                         <div class="col-4 pr-3">

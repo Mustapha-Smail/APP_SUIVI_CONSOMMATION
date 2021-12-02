@@ -5,9 +5,6 @@
     <div class="container">
         <div class="container-body">
             <div class="row">
-                <small class="col-sm-12 pb-2">
-                    <a href="{{route('accueil')}}">Accueil</a>/
-                </small>
                 <div class="col-sm-12 pb-3">
                     <h1>Hello {{$user->prenom}} !</h1>
                 </div>

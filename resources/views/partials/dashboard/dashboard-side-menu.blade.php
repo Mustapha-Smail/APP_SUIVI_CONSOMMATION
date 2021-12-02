@@ -1,6 +1,6 @@
 <div class="side-menu">
     <div class="brand-name">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('dashboard')}}">
             <img src="{{URL::asset('images/logo.png')}}" alt="logo" width="80%">
         </a>
     </div>
