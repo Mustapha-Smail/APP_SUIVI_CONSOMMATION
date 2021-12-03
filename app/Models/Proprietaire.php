@@ -10,6 +10,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Proprietaire extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    // protected $fillable = [
+    //     'user_id',
+    //     'maison_id',
+    //     'debut_possession',
+    //     'fin_possession',
+    //     'created_at',
+    //     'updated_at',
+
+    // ]; 
 
     protected $dates = [
         'debut_possession',

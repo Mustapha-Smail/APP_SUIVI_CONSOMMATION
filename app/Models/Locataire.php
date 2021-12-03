@@ -11,6 +11,18 @@ class Locataire extends Model
 {
     use HasFactory;
 
+    // protected $fillable = [
+    //     'user_id',
+    //     'appartement_id',
+    //     'debut_location',
+    //     'fin_location',
+    //     'created_at',
+    //     'updated_at',
+
+    // ];
+    protected $guarded = [];
+
+
     public function user(){
         return $this->belongsTo(User::class); 
     }

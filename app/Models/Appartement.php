@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Appartement extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function locataires(){
         return $this->hasMany(Locataire::class); 

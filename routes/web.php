@@ -30,6 +30,7 @@ Route::get('/dashboard-admin', [DashboardController::class, 'admin'])->middlewar
 Route::get('/maisons', [ProprietaireController::class, 'index'])->middleware(['auth','verified'])->name('proprietaire.maisons');
 Route::get('/appartements/{maison_id}', [ProprietaireController::class, 'appartements'])->middleware(['auth','verified'])->name('proprietaire.appartements');
 Route::get('/ajout-maison', [ProprietaireController::class, 'ajoutMaison'])->middleware(['auth','verified'])->name('proprietaire.ajout-maison');
+Route::post('/ajout-maison', [ProprietaireController::class, 'storeMaison'])->middleware(['auth','verified']);
 
 // LOCATAIRES 
 Route::get('/appartements', [LocataireController::class, 'index'])->middleware(['auth','verified'])->name('locataire.appartements');

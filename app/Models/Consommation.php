@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Consommation extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function appareil(){
         return $this->belongsTo(Appareil::class); 

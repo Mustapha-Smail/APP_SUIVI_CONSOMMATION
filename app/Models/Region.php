@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Region extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
-    protected $fillable = [
-        'nom'
-    ];
+    // protected $fillable = [
+    //     'nom'
+    // ];
 
     public function departements()
     {

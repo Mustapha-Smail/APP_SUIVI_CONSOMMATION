@@ -11,12 +11,8 @@ class Departement extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nom', 
-        'code', 
-        'region_id'
+    protected $guarded = [];
 
-    ];
 
     public function region()
     {

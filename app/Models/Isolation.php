@@ -9,9 +9,8 @@ class Isolation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'libelle'
-    ];
+    protected $guarded = [];
+
 
     public function maisons(){
         return $this->hasMany(Maison::class); 

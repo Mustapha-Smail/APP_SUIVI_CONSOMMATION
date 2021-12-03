@@ -12,6 +12,8 @@ class Appareil extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function piece(){
         return $this->belongsTo(Piece::class); 
     }

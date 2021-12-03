@@ -26,7 +26,8 @@ class AddAppartementToPiecesTable extends Migration
     public function down()
     {
         Schema::table('pieces', function (Blueprint $table) {
-            //
+            $table->dropForeign(['appartement_id']);
+            $table->dropColumn('appartement_id');
         });
     }
 }

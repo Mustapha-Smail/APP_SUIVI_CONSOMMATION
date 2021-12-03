@@ -13,11 +13,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Maison extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
-    protected $fillable = [
-        'name', 
-        'adresse_id'
-    ];
+    // protected $fillable = [
+    //     'name', 
+    //     'adresse_id'
+    // ];
 
     public function ville()
     {
