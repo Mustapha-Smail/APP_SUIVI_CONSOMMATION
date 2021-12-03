@@ -17,7 +17,7 @@
                 <div class="col-sm-12 pb-3">
                     <div class="row justify-content-end">
                         <div class="col-4 pr-3">
-                            <button class="btn btn-lg btn-primary float-right">Ajouter une maison</button>
+                            <a href="{{route('proprietaire.ajout-maison')}}" class="btn btn-lg btn-primary float-right">Ajouter une maison</a>
                         </div>
                     </div>
                 </div>

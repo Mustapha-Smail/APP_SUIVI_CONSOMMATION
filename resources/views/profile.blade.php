@@ -15,6 +15,11 @@
             @if ($user)
                 <form action="#" method="post" class="w-100">
                     <div class="form-group">
+                        <label for="identifiant" class=" w-50">Identifiant</label>
+                        <input type="text" readonly name="identifiant" id="identifiant" class="form-control w-50" value="{{$user->identifiant}}" >
+                    </div>
+
+                    <div class="form-group">
                         <label for="nom" class=" w-50">Nom</label>
                         <input type="text" name="nom" id="nom" class="form-control w-50" value="{{$user->nom}}" >
                     </div>

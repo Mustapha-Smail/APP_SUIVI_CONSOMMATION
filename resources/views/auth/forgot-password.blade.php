@@ -26,6 +26,12 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    @if (session('status'))
+                        <small class="p-2 text-success font-weight-bold">
+                            Un nouveau lien de réinitialisation a été envoyé à l'adresse e-mail que vous avez fournie lors de
+                            l'inscription.
+                        </small>
+                    @endif
                     <div class="form-group">
                         Mot de passe oublié? Aucun problème.
                         <br> Communiquez-nous simplement votre adresse e-mail et nous

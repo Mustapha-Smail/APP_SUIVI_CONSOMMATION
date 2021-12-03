@@ -5,29 +5,16 @@
     <div class="container">
         <div class="container-body">
             <div class="row">
-                <div class="col-sm-12 pb-3">
-                    <h1>Hello {{$user->prenom}} !</h1>
-                    <a href="{{route('admin.dashboard')}}">admin</a>
-                </div>
-                <div class="col-sm-12 pb-3">
-                    <div class="row justify-content-end">
-                        <div class="col-4 pr-3">
-                            <a href="#" class="btn btn-lg btn-primary float-right">Ajouter un appartement</a>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-sm-9">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <a href="{{route('proprietaire.maisons')}}" class="btn btn-lg btn-success">
-                                Mes propriétés
-                            </a>
+                        <div class="col-sm-9">
+                            <ul>
+                                <li>{{count($utilisateurs_hommes)}}</li>
+                                <li>{{count($utilisateurs_femmes)}}</li>
+                            </ul>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="{{route('locataire.appartements')}}" class="btn btn-lg btn-success">
-                                Mes locations
-                            </a>
-                        </div>
+                        <div class="col-sm-3 pop_div"></div>
+                        @areachart('Population', 'pop_div')
                     </div>
                     
                 </div>

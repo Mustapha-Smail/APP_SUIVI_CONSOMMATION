@@ -50,4 +50,9 @@ class ProprietaireController extends Controller
         
 
     }
+
+    public function ajoutMaison(){
+        
+        return view('proprietaire.ajout-maison'); 
+    }
 }

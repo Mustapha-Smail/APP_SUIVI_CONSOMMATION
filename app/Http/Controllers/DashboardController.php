@@ -10,6 +10,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Khill\Lavacharts\Lavacharts as Lava; 
+// use Khill\Lavacharts\Laravel\LavachartsFacade as lavaL
 
 class DashboardController extends Controller
 {
@@ -31,6 +33,43 @@ class DashboardController extends Controller
         // dd(gettype($maisons[0]));
 
         return view('dashboard', compact('user', 'maisons'));
+    }
+
+    public function admin(){
+        
+        $utilisateurs_hommes = DB::table('users')
+                                ->select('users.*')
+                                ->where('users.genre', '=', 'M')
+                                ->get(); 
+
+        $utilisateurs_femmes = DB::table('users')
+                                ->select('users.*')
+                                ->where('users.genre', '=', 'F')
+                                ->get();  
+                                
+        $population = Lava::DataTable();
+
+        $population->addDateColumn('Year')
+                ->addNumberColumn('Number of People')
+                ->addRow(['2006', 623452])
+                ->addRow(['2007', 685034])
+                ->addRow(['2008', 716845])
+                ->addRow(['2009', 757254])
+                ->addRow(['2010', 778034])
+                ->addRow(['2011', 792353])
+                ->addRow(['2012', 839657])
+                ->addRow(['2013', 842367])
+                ->addRow(['2014', 873490]);
+
+        Lava::AreaChart('Population', $population, [
+            'title' => 'Population Growth',
+            'legend' => [
+                'position' => 'in'
+            ]
+        ]);                          
+
+        // dd($population); 
+        return view('admin.dashboard', compact('utilisateurs_hommes', 'utilisateurs_femmes', 'population')); 
     }
 
     public function profile(){
