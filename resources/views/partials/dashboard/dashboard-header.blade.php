@@ -14,6 +14,6 @@
 
     <!-- Custom CSS -->
     {{-- <link rel="stylesheet" href="{{asset('css/app.css')}}"> --}}
-    <link rel="stylesheet" href="{{asset('css/dashboard-styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dashboard-styles.css?v=').time()}}">
   </head>
   <body>
