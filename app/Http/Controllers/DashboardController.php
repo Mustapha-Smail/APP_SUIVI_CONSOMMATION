@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\HommesFemmesUsersChart;
 use App\Models\Maison;
 use App\Models\Appartement;
 use App\Models\Locataire;
 use App\Models\Proprietaire;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -36,19 +38,8 @@ class DashboardController extends Controller
         return view('dashboard', compact('user', 'maisons'));
     }
 
-    public function admin(){
-        
-        $utilisateurs_hommes = DB::table('users')
-                                ->select('users.*')
-                                ->where('users.genre', '=', 'M')
-                                ->get(); 
-
-        $utilisateurs_femmes = DB::table('users')
-                                ->select('users.*')
-                                ->where('users.genre', '=', 'F')
-                                ->get();  
-                                
-        return view('admin.dashboard', compact('utilisateurs_hommes', 'utilisateurs_femmes')); 
+    public function admin(HommesFemmesUsersChart $chart){
+        return view('admin.dashboard', ['chart' => $chart->build()]); 
     }
 
     public function profile(){
