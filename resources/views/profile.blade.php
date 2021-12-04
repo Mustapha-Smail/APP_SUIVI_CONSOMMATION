@@ -13,39 +13,70 @@
                 </div>
             </div>
             @if ($user)
-                <form action="#" method="post" class="w-100">
-                    <div class="form-group">
-                        <label for="identifiant" class=" w-50">Identifiant</label>
-                        <input type="text" readonly name="identifiant" id="identifiant" class="form-control w-50" value="{{$user->identifiant}}" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nom" class=" w-50">Nom</label>
-                        <input type="text" name="nom" id="nom" class="form-control w-50" value="{{$user->nom}}" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="prenom" class=" w-50">Prénom</label>
-                        <input type="text" name="prenom" id="prenom" class="form-control w-50" value="{{$user->prenom}}" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="date_naissance" class=" w-50">Date de naissance</label>
-                        <input type="date" name="date_naissance" id="date_naissance" class="form-control w-50" value="{{$user->date_naissance->format('Y-m-d')}}" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class=" w-50">E-mail</label>
-                        <input type="email" name="email" id="email" class="form-control w-50" value="{{$user->email}}" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="num_tel" class=" w-50">N° Téléphone</label>
-                        <input type="tel" name="num_tel" id="num_tel" class="form-control w-50" pattern="[0]{1}[0-9]{9}"
-                            value="{{$user->num_tel}}">
-                    </div>
-
-                </form>
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <form action="#" method="post" class="w-100">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="identifiant">Identifiant</label>
+                                        <input type="text" readonly name="identifiant" id="identifiant" class="form-control" value="{{$user->identifiant}}" >
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="nom">Nom</label>
+                                        <input type="text" name="nom" id="nom" class="form-control" value="{{$user->nom}}" >
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="prenom">Prénom</label>
+                                        <input type="text" name="prenom" id="prenom" class="form-control" value="{{$user->prenom}}" >
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="date_naissance">Date de naissance</label>
+                                        <input type="date" name="date_naissance" id="date_naissance" class="form-control" value="{{$user->date_naissance->format('Y-m-d')}}" >
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        <input type="email" name="email" id="email" class="form-control" value="{{$user->email}}" >
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="num_tel">N° Téléphone</label>
+                                        <input type="tel" name="num_tel" id="num_tel" class="form-control" pattern="[0]{1}[0-9]{9}"
+                                            value="{{$user->num_tel}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="num_rue">N° rue</label>
+                                        <input type="number" name="num_rue" class="form-control" value={{$adresse_fixe->appartement->maison->num_rue}} id="num_rue" readonly>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="rue">Rue</label>
+                                        <input type="text" name="rue" class="form-control" value={{$adresse_fixe->appartement->maison->nom_rue}} id="rue" readonly>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="code_postal">Code Postal</label>
+                                        <input type="number" name="code_postal" class="form-control" value={{$adresse_fixe->appartement->maison->ville->code_postal}} id="code_postal" readonly>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="ville">Ville</label>
+                                        <input type="text" name="ville" class="form-control" value={{$adresse_fixe->appartement->maison->ville->nom}} id="ville" readonly>
+                                    </div>
+                                </div>
+                            </div>
+    
+                    </form>
+                </div>
+            </div>
             @endif
         </div>
     </div>

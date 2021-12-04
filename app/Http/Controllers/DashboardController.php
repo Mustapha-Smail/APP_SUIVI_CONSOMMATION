@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Maison;
 use App\Models\Appartement;
+use App\Models\Locataire;
 use App\Models\Proprietaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -47,34 +48,13 @@ class DashboardController extends Controller
                                 ->where('users.genre', '=', 'F')
                                 ->get();  
                                 
-        $population = Lava::DataTable();
-
-        $population->addDateColumn('Year')
-                ->addNumberColumn('Number of People')
-                ->addRow(['2006', 623452])
-                ->addRow(['2007', 685034])
-                ->addRow(['2008', 716845])
-                ->addRow(['2009', 757254])
-                ->addRow(['2010', 778034])
-                ->addRow(['2011', 792353])
-                ->addRow(['2012', 839657])
-                ->addRow(['2013', 842367])
-                ->addRow(['2014', 873490]);
-
-        Lava::AreaChart('Population', $population, [
-            'title' => 'Population Growth',
-            'legend' => [
-                'position' => 'in'
-            ]
-        ]);                          
-
-        // dd($population); 
-        return view('admin.dashboard', compact('utilisateurs_hommes', 'utilisateurs_femmes', 'population')); 
+        return view('admin.dashboard', compact('utilisateurs_hommes', 'utilisateurs_femmes')); 
     }
 
     public function profile(){
         $user = Auth::user(); 
-        return view('profile', compact('user'));
+        $adresse_fixe = Locataire::where([['user_id', $user->id], ['fixe', true]])->orderBy('updated_at', 'desc')->first(); 
+        return view('profile', compact('user', 'adresse_fixe'));
     }
 
     public function appartement($maison_id){

@@ -60,6 +60,12 @@
                                         <label for="ville">Ville</label>
                                         <input type="text" name="ville" class="form-control" id="ville" readonly>
                                     </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="fixe">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Adresse fixe</label>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="card">

@@ -35,9 +35,10 @@ class ProprietaireController extends Controller
                                 ['proprietaires.user_id', '=', $user->id],
                                 ['proprietaires.fin_possession', '>', Carbon::now()],
                             ])
+                            ->orderByDesc('proprietaires.created_at')
                             ->get(); 
 
-        // dd(gettype($maisons[0]));
+        // dd($maisons);
 
         return view('proprietaire.maisons', compact('user', 'maisons'));
     }
@@ -76,6 +77,7 @@ class ProprietaireController extends Controller
     }
 
     public function storeMaison(Request $request){
+        // dd($request->fixe && 1 ); 
         $ville = Ville::where([
             ['nom', $request->ville],
             ['code_postal', $request->code_postal],
@@ -149,13 +151,18 @@ class ProprietaireController extends Controller
                 'updated_at' => Carbon::now(),
             ]); 
 
-             $locataire = Locataire::create([
+            $fixe = $request->fixe ? true : false; 
+
+            // dd($fixe); 
+
+            $locataire = Locataire::create([
                 'user_id' => Auth::user()->id,
                 'appartement_id' => $appartement->id,
                 'debut_location' => $request->debut_possession,
                 'fin_location' => $request->fin_possession,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'fixe' => $fixe, 
             ]);
             
             return redirect()->route('proprietaire.maisons'); 
