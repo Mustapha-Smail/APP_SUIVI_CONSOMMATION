@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Charts\HommesFemmesUsersChart;
+use App\Charts\MonthlyUsersChart;
+use App\Charts\UsersAgeChart;
+use App\Charts\UsersByAgeChart;
 use App\Models\Maison;
 use App\Models\Appartement;
 use App\Models\Locataire;
@@ -36,10 +39,6 @@ class DashboardController extends Controller
         // dd(gettype($maisons[0]));
 
         return view('dashboard', compact('user', 'maisons'));
-    }
-
-    public function admin(HommesFemmesUsersChart $chart){
-        return view('admin.dashboard', ['chart' => $chart->build()]); 
     }
 
     public function profile(){
@@ -78,5 +77,26 @@ class DashboardController extends Controller
         return view('pieces', compact(
             'pieces'
         )); 
+    }
+
+    public function admin(
+        HommesFemmesUsersChart $chart, 
+        UsersByAgeChart $usersbyage
+    )
+    {
+        return view('admin.dashboard', [
+            'chart' => $chart->build(),
+            'usersbyage' => $usersbyage->build()
+        ]); 
+    }
+
+    public function usersage(){
+        return view('admin.usersage'); 
+    }
+
+    public function searchusersage(Request $request, UsersAgeChart $chart){
+        // dd($request->date_naissance); 
+        $chart = $chart->build($request->date_naissance); 
+        return redirect()->route('admin.usersage')->with(['chart' => $chart]); 
     }
 }

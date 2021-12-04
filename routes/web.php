@@ -24,7 +24,11 @@ Route::get('/', function () {
 // DASHBOARD Gle
 Route::get('/profile', [DashboardController::class, 'profile'])->middleware(['auth','verified'])->name('profile');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
+
+// ADMIN
 Route::get('/dashboard-admin', [DashboardController::class, 'admin'])->middleware(['auth','verified'])->name('admin.dashboard');
+Route::get('/users-age', [DashboardController::class, 'usersage'])->middleware(['auth','verified'])->name('admin.usersage');
+Route::post('/users-age', [DashboardController::class, 'searchusersage'])->middleware(['auth','verified']);
 
 // PROPRIETAIRE 
 Route::get('/maisons', [ProprietaireController::class, 'index'])->middleware(['auth','verified'])->name('proprietaire.maisons');
