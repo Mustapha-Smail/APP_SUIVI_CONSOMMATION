@@ -22,6 +22,8 @@ class HommesFemmesUsersChart
         return $this->chart->pieChart()
             ->setTitle('Histogramme du nombre d’hommes et de femmes inscrits sur le site')
             ->addData([count($utilisateurs_femmes), count($utilisateurs_hommes)])
-            ->setLabels(['Femmes', 'Hommes']);
+            ->setLabels(['Femmes', 'Hommes'])
+            ->setColors(['#D4DC83', '#414230'])
+            ->setFontFamily('Dosis, sans-serif');
     }
 }

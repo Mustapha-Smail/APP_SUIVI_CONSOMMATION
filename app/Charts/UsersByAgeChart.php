@@ -43,6 +43,8 @@ class UsersByAgeChart
         return $this->chart->barChart()
             ->setTitle('Users by age')
             ->addData('', $y)
-            ->setXAxis($x);
+            ->setXAxis($x)
+            ->setColors(['#B9C253','#D4DC83','#414230','#888F3D','#3F421D'])
+            ->setFontFamily('Dosis, sans-serif');
     }
 }

@@ -31,6 +31,8 @@ class UsersAgeChart
         return $this->chart->lineChart()
             ->setTitle('Users de '.$annee_naissance)
             ->addData('Users', $u)
-            ->setXAxis($months);
+            ->setXAxis($months)
+            ->setColors(['#B9C253'])
+            ->setFontFamily('Dosis, sans-serif');
     }
 }
