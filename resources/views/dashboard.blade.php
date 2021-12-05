@@ -7,7 +7,6 @@
             <div class="row">
                 <div class="col-sm-12 pb-3">
                     <h1>Hello {{$user->prenom}} !</h1>
-                    <a href="{{route('admin.dashboard')}}">admin</a>
                 </div>
                 <div class="col-sm-12 pb-3">
                     <div class="row justify-content-end">

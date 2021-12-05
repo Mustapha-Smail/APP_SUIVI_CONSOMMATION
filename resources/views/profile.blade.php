@@ -50,30 +50,33 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="num_rue">N° rue</label>
-                                        <input type="number" name="num_rue" class="form-control" value={{$adresse_fixe->appartement->maison->num_rue}} id="num_rue" readonly>
-                                    </div>
-    
-                                    <div class="form-group">
-                                        <label for="rue">Rue</label>
-                                        <input type="text" name="rue" class="form-control" value={{$adresse_fixe->appartement->maison->nom_rue}} id="rue" readonly>
-                                    </div>
-    
-                                    <div class="form-group">
-                                        <label for="code_postal">Code Postal</label>
-                                        <input type="number" name="code_postal" class="form-control" value={{$adresse_fixe->appartement->maison->ville->code_postal}} id="code_postal" readonly>
-                                    </div>
-    
-                                    <div class="form-group">
-                                        <label for="ville">Ville</label>
-                                        <input type="text" name="ville" class="form-control" value={{$adresse_fixe->appartement->maison->ville->nom}} id="ville" readonly>
+                            @if ($adresse_fixe)
+                                
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="num_rue">N° rue</label>
+                                            <input type="number" name="num_rue" class="form-control" value={{$adresse_fixe->appartement->maison->num_rue}} id="num_rue" readonly>
+                                        </div>
+        
+                                        <div class="form-group">
+                                            <label for="rue">Rue</label>
+                                            <input type="text" name="rue" class="form-control" value={{$adresse_fixe->appartement->maison->nom_rue}} id="rue" readonly>
+                                        </div>
+        
+                                        <div class="form-group">
+                                            <label for="code_postal">Code Postal</label>
+                                            <input type="number" name="code_postal" class="form-control" value={{$adresse_fixe->appartement->maison->ville->code_postal}} id="code_postal" readonly>
+                                        </div>
+        
+                                        <div class="form-group">
+                                            <label for="ville">Ville</label>
+                                            <input type="text" name="ville" class="form-control" value={{$adresse_fixe->appartement->maison->ville->nom}} id="ville" readonly>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-    
+                            
+                            @endif
                     </form>
                 </div>
             </div>

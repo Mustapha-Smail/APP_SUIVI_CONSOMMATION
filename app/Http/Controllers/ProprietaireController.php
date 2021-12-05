@@ -21,6 +21,11 @@ class ProprietaireController extends Controller
 {
     public function index(){
         $user = Auth::user(); 
+        
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
+            abort(403); 
+        }
+
         $maisons = DB::table('proprietaires')
                             ->join('maisons', 'proprietaires.maison_id', 'maisons.id')
                             ->join('villes', 'maisons.ville_id', 'villes.id')
@@ -45,9 +50,13 @@ class ProprietaireController extends Controller
 
     public function appartements($maison_id){
         
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
+            abort(403); 
+        }
+
         $maison = Maison::whereIn('id', array($maison_id))->first(); 
 
-        if (! Gate::allows('get-proprietaire-appartements', $maison)) {
+        if ((! Gate::allows('get-proprietaire-appartements', $maison)) || (Gate::allows('admin'))) {
             abort(403); 
         }
 
@@ -61,6 +70,10 @@ class ProprietaireController extends Controller
     }
 
     public function ajoutMaison(){
+
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
+            abort(403); 
+        }
 
         $status_ecologique = Statusecologique::all(); 
         $degres_isolation = Isolation::all(); 
@@ -77,6 +90,11 @@ class ProprietaireController extends Controller
     }
 
     public function storeMaison(Request $request){
+
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
+            abort(403); 
+        }
+
         // dd($request->fixe && 1 ); 
         $ville = Ville::where([
             ['nom', $request->ville],

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\HommesFemmesUsersChart;
+use App\Charts\MonthlyUsersChart;
+use App\Charts\UsersAgeChart;
+use App\Charts\UsersByAgeChart;
 use App\Models\Maison;
 use App\Models\Appartement;
 use App\Models\Locataire;
 use App\Models\Proprietaire;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,39 +21,25 @@ use Khill\Lavacharts\Lavacharts as Lava;
 
 class DashboardController extends Controller
 {
-    public function index(){
+
+    public function index(
+        HommesFemmesUsersChart $chart, 
+        UsersByAgeChart $usersbyage
+    )
+    {
         $user = Auth::user(); 
-        $maisons = DB::table('proprietaires')
-                            ->join('maisons', 'proprietaires.maison_id', 'maisons.id')
-                            ->join('villes', 'maisons.ville_id', 'villes.id')
-                            ->select(
-                                'maisons.*', 
-                                'proprietaires.debut_possession', 
-                                'proprietaires.fin_possession', 
-                                'villes.nom AS nom_ville',
-                                'villes.code_postal'
-                            )
-                            ->where('proprietaires.user_id', '=', $user->id)
-                            ->get(); 
 
-        // dd(gettype($maisons[0]));
+        if(Gate::allows('admin')){
 
-        return view('dashboard', compact('user', 'maisons'));
-    }
+            return view('admin.dashboard', [
+                'chart' => $chart->build(),
+                'usersbyage' => $usersbyage->build()
+            ]); 
+        }
 
-    public function admin(){
-        
-        $utilisateurs_hommes = DB::table('users')
-                                ->select('users.*')
-                                ->where('users.genre', '=', 'M')
-                                ->get(); 
-
-        $utilisateurs_femmes = DB::table('users')
-                                ->select('users.*')
-                                ->where('users.genre', '=', 'F')
-                                ->get();  
-                                
-        return view('admin.dashboard', compact('utilisateurs_hommes', 'utilisateurs_femmes')); 
+        else{
+            return view('dashboard', compact('user'));
+        }
     }
 
     public function profile(){
@@ -57,35 +48,18 @@ class DashboardController extends Controller
         return view('profile', compact('user', 'adresse_fixe'));
     }
 
-    public function appartement($maison_id){
-        
-        $maison = Maison::whereIn('id', array($maison_id))->first(); 
-
-        if (! Gate::allows('get-appartements', $maison)) {
-            abort(403); 
-        }
-
-        $appartements = $maison->appartements; 
-        // dd($appartements); 
-
-
-        return view('appartements', compact('appartements')); 
-        
-
-    }
     
-    public function piece($appartement_id){
 
-        $appartement = Appartement::find($appartement_id);
-
-        if (! Gate::allows('get-pieces', $appartement)) {
+    public function usersage(){
+        if(! Gate::allows('admin')){
             abort(403); 
         }
+        return view('admin.usersage'); 
+    }
 
-        $pieces = $appartement->pieces; 
-
-        return view('pieces', compact(
-            'pieces'
-        )); 
+    public function searchusersage(Request $request, UsersAgeChart $chart){
+        // dd($request->date_naissance); 
+        $chart = $chart->build($request->date_naissance); 
+        return redirect()->route('admin.usersage')->with(['chart' => $chart]); 
     }
 }

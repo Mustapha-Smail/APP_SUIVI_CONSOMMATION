@@ -30,6 +30,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('admin', function(User $user){
+            return $user->admin; 
+        }); 
+
         Gate::define('get-proprietaire-appartements', function(User $user, Maison $maison){
             $proprietaire = DB::table('proprietaires')
                                 ->select('proprietaires.user_id')

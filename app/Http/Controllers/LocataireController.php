@@ -13,6 +13,11 @@ class LocataireController extends Controller
 {
     public function index(){
         $user = Auth::user(); 
+
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des locations
+            abort(403); 
+        }
+
         $appartements = DB::table('locataires')
                             ->join('appartements', 'locataires.appartement_id', 'appartements.id')
                             ->select(
@@ -34,7 +39,7 @@ class LocataireController extends Controller
     public function pieces($appartement_id){
         $appartement = Appartement::find($appartement_id); 
 
-        if(! Gate::allows('get-locataire-pieces', $appartement)){
+        if((! Gate::allows('get-locataire-pieces', $appartement) || (Gate::allows('admin')))){
             abort(403); 
         }
 
