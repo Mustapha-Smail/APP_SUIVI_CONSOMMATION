@@ -21,24 +21,25 @@ use Khill\Lavacharts\Lavacharts as Lava;
 
 class DashboardController extends Controller
 {
-    public function index(){
+
+    public function index(
+        HommesFemmesUsersChart $chart, 
+        UsersByAgeChart $usersbyage
+    )
+    {
         $user = Auth::user(); 
-        $maisons = DB::table('proprietaires')
-                            ->join('maisons', 'proprietaires.maison_id', 'maisons.id')
-                            ->join('villes', 'maisons.ville_id', 'villes.id')
-                            ->select(
-                                'maisons.*', 
-                                'proprietaires.debut_possession', 
-                                'proprietaires.fin_possession', 
-                                'villes.nom AS nom_ville',
-                                'villes.code_postal'
-                            )
-                            ->where('proprietaires.user_id', '=', $user->id)
-                            ->get(); 
 
-        // dd(gettype($maisons[0]));
+        if(Gate::allows('admin')){
 
-        return view('dashboard', compact('user', 'maisons'));
+            return view('admin.dashboard', [
+                'chart' => $chart->build(),
+                'usersbyage' => $usersbyage->build()
+            ]); 
+        }
+
+        else{
+            return view('dashboard', compact('user'));
+        }
     }
 
     public function profile(){
@@ -47,50 +48,12 @@ class DashboardController extends Controller
         return view('profile', compact('user', 'adresse_fixe'));
     }
 
-    public function appartement($maison_id){
-        
-        $maison = Maison::whereIn('id', array($maison_id))->first(); 
-
-        if (! Gate::allows('get-appartements', $maison)) {
-            abort(403); 
-        }
-
-        $appartements = $maison->appartements; 
-        // dd($appartements); 
-
-
-        return view('appartements', compact('appartements')); 
-        
-
-    }
     
-    public function piece($appartement_id){
-
-        $appartement = Appartement::find($appartement_id);
-
-        if (! Gate::allows('get-pieces', $appartement)) {
-            abort(403); 
-        }
-
-        $pieces = $appartement->pieces; 
-
-        return view('pieces', compact(
-            'pieces'
-        )); 
-    }
-
-    public function admin(
-        HommesFemmesUsersChart $chart, 
-        UsersByAgeChart $usersbyage
-    )
-    {
-        return view('admin.dashboard', [
-            'chart' => $chart->build(),
-            'usersbyage' => $usersbyage->build()
-        ]); 
-    }
 
     public function usersage(){
+        if(! Gate::allows('admin')){
+            abort(403); 
+        }
         return view('admin.usersage'); 
     }
 

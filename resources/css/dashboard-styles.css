@@ -44,7 +44,7 @@ h6 {
 .side-menu {
     position: fixed;
     background: var(--color-4);
-    width: 20vw;
+    width: 15vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -52,8 +52,8 @@ h6 {
 }
 
 .side-menu .brand-name {
-    height: 10vh;
-    width: 20vw;
+    height: 7vh;
+    width: 15vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,11 +101,11 @@ h6 {
 
 .container {
     position: absolute;
-    min-width: 80vw;
-    max-width: 80vw;
-    height: 90vh;
+    min-width: 85vw;
+    max-width: 85vw;
+    min-height: 93vh;
     right: 0;
-    top: 10vh;
+    top: 7vh;
 }
 
 .header {
@@ -113,8 +113,8 @@ h6 {
     position: fixed;
     top: 0;
     right: 0;
-    width: 80vw;
-    height: 10vh;
+    width: 85vw;
+    height: 7vh;
     padding: 0 1rem 0 2rem;
     background-color: var(--color-4);
     display: flex;
@@ -128,8 +128,8 @@ h6 {
     position: absolute;
     right: 0;
     bottom: 0;
-    height: 90vh;
-    width: 80vw;
+    height: 93vh;
+    width: 85vw;
     padding: 2rem;
 }
 
@@ -158,12 +158,13 @@ h6 {
 
 
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1050px) {
     .side-menu .brand-name h1 {
         font-size: 1.5rem;
     }
 
-    .side-menu li {
+    .side-menu li,
+    .side-menu li a {
         font-size: 1rem;
     }
 }

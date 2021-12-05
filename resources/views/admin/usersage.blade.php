@@ -7,14 +7,14 @@
                 <div class="col-sm-3">
                     <form action="{{route('admin.usersage')}}" method="post" class="form w-100">
                         @csrf
-                        <input type="number" min="1900" max="2099" step="1" name="date_naissance" id="date_naissance" class="form-control">
+                        <input type="number" min="1900" max="2099" step="1" name="date_naissance" id="date_naissance" class="form-control" required>
                         <button type="submit" class="m-2 btn btn-sm btn-primary">Search</button>
                     </form>
                 </div>
             </div>
                 <div class="row d-flex justify-content-center align-items-center">
                 @if (Session::get('chart'))
-                    <div class="col-sm-6 offset-sm-3 rounded shadow">
+                    <div class="col-sm-6 rounded shadow">
                         {{ (Session::get('chart'))->container() }}
                     </div>
                 @else

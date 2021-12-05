@@ -11,12 +11,10 @@
                 </div>
             </div>
             <div class="row p-3">
-                <div class="col-sm-4 rounded shadow">
+                <div class="col-sm-4 rounded shadow w-auto">
                     {!! $chart->container() !!}
-                </div>
-            </div>
-            <div class="row p-3">   
-                <div class="col-sm-4 offset-sm-8 rounded shadow">
+                </div> 
+                <div class="col-sm-4 offset-sm-4 rounded shadow">
                      {!! $usersbyage->container() !!}
                 </div>
             </div>
