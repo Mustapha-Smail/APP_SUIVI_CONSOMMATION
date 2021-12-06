@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Piece extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function appartement(){
         return $this->belongsTo(Appartement::class); 

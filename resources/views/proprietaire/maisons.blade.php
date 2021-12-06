@@ -54,7 +54,7 @@
                     </div><br>
                     @empty
                         <center>
-                        <button class="btn btn-lg btn-success">Ajouter une maison</button>
+                        <a href="{{route('proprietaire.ajout-maison')}}" class="btn btn-lg btn-success">Ajouter une maison</a>
                         </center>
                     @endforelse
                 </div>

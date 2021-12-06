@@ -8,13 +8,6 @@
                 <div class="col-sm-12 pb-3">
                     <h1>Hello {{$user->prenom}} !</h1>
                 </div>
-                <div class="col-sm-12 pb-3">
-                    <div class="row justify-content-end">
-                        <div class="col-4 pr-3">
-                            <a href="#" class="btn btn-lg btn-primary float-right">Ajouter un appartement</a>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-6">

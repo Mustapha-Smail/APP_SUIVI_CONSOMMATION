@@ -1,7 +1,6 @@
 @extends('layouts/dashboard-app')
 
 @section('content')
-    
     <div class="container">
         <div class="container-body">
             <div class="row">
@@ -14,6 +13,15 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-12 pb-3">
+                    <div class="row justify-content-end">
+                        @if (count($pieces)>0)
+                            <div class="col-4 pr-3">
+                                <a href="{{route('locataire.ajout-piece', [$pieces[0]->appartement->id])}}" class="btn btn-lg btn-primary float-right">Ajouter une piece</a>
+                            </div>   
+                        @endif
+                    </div>
+                </div>
                 <div class="col-sm-9">
                     @forelse ($pieces as $piece)
                         <div class="card w-100 shadow">
@@ -36,7 +44,7 @@
                     </div><br>
                     @empty
                         <center>
-                        <button class="btn btn-lg btn-success">Ajouter un appartement</button>
+                            <a href="{{route('locataire.ajout-piece', [Request::segment(2)])}}" class="btn btn-lg btn-success">Ajouter une pièce</a>
                         </center>
                     @endforelse
                 </div>

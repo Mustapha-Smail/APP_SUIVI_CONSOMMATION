@@ -14,6 +14,14 @@
                 </div>
             </div>
             <div class="row">
+                
+                <div class="col-sm-12 pb-3">
+                    <div class="row justify-content-end">
+                        <div class="col-4 pr-3">
+                            <a href="{{route('locataire.ajout-appartement')}}" class="btn btn-lg btn-primary float-right">Ajouter un appartement</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-9">
                     @forelse ($appartements as $appartement)
                         <div class="card w-100 shadow">
@@ -38,7 +46,7 @@
                     </div><br>
                     @empty
                         <center>
-                        <button class="btn btn-lg btn-success">Ajouter un appartement</button>
+                        <a href="{{route('locataire.ajout-appartement')}}" class="btn btn-lg btn-success">Ajouter un appartement</a>
                         </center>
                     @endforelse
                 </div>

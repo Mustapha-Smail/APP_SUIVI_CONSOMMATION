@@ -58,7 +58,8 @@ class DashboardController extends Controller
     }
 
     public function searchusersage(Request $request, UsersAgeChart $chart){
-        // dd($request->date_naissance); 
+        // $date = 'date_naissance'; 
+        // dd($request->$date); 
         $chart = $chart->build($request->date_naissance); 
         return redirect()->route('admin.usersage')->with(['chart' => $chart]); 
     }

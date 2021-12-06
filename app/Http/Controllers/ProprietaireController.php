@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appartement;
+use App\Models\Piece;
+use App\Models\Ville;
+use App\Models\Maison;
+use App\Models\Securite;
 use App\Models\Isolation;
 use App\Models\Locataire;
-use App\Models\Maison;
+use App\Models\Typepiece;
+use App\Models\Appartement;
 use App\Models\Proprietaire;
-use App\Models\Securite;
-use App\Models\Statusecologique;
-use App\Models\Typeappartement;
-use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\Typeappartement;
+use App\Models\Statusecologique;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -50,10 +52,6 @@ class ProprietaireController extends Controller
 
     public function appartements($maison_id){
         
-        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
-            abort(403); 
-        }
-
         $maison = Maison::whereIn('id', array($maison_id))->first(); 
 
         if ((! Gate::allows('get-proprietaire-appartements', $maison)) || (Gate::allows('admin'))) {
@@ -102,6 +100,10 @@ class ProprietaireController extends Controller
         ])->first(); 
 
         // dd($ville->nom); 
+        if(! $ville){
+            return redirect()->route('proprietaire.ajout-maison')
+                             ->withErrors(['error' => 'adresse incorrecte']); 
+        }
 
         $maison = Maison::where([
             ['num_rue', $request->num_rue], 
@@ -172,19 +174,124 @@ class ProprietaireController extends Controller
             $fixe = $request->fixe ? true : false; 
 
             // dd($fixe); 
+            if ($fixe) {
+                $ancien_appart = Locataire::where([
+                        ['user_id', $proprietaire->user_id],
+                        ['fixe', true]
+                ])->delete();
+            
+
+                $locataire = Locataire::create([
+                    'user_id' => Auth::user()->id,
+                    'appartement_id' => $appartement->id,
+                    'debut_location' => $request->debut_possession,
+                    'fin_location' => $request->fin_possession,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'fixe' => $fixe,
+                ]);
+            }
+
+            return redirect()->route('proprietaire.maisons'); 
+
+        }
+    }
+
+    public function ajoutAppartementProprietaire($maison_id){
+
+        $maison = Maison::find($maison_id); 
+
+        // dd($maison); 
+
+        if ((! Gate::allows('get-proprietaire-appartements', $maison)) || (Gate::allows('admin'))) {
+            abort(403); 
+        }
+
+        $degres_isolation = Isolation::all(); 
+        $types_appartement = Typeappartement::all();
+        $degres_securite = Securite::all(); 
+        $types_piece = Typepiece::all(); 
+
+
+        return view('proprietaire.ajout-appartement', compact(
+            'degres_isolation',
+            'types_appartement',
+            'degres_securite',
+            'types_piece'
+        )); 
+    }
+
+    public function storeAppartementProprietaire(Request $request, $maison_id){
+
+        $maison = Maison::find($maison_id); 
+
+        // dd($maison); 
+
+        if ((! Gate::allows('get-proprietaire-appartements', $maison)) || (Gate::allows('admin'))) {
+            abort(403); 
+        }
+
+
+        $appartement = Appartement::firstOrCreate(
+            [
+                'num_boite' => $request->num_boite,
+                'maison_id' => $maison->id
+            ],
+            [
+                'nombre_habitants' => $request->nombre_habitants,
+                'typeappartement_id' => $request->type_appartement,
+                'securite_id' => $request->degres_securite,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]
+        ); 
+
+
+        $fixe = $request->fixe ? true : false; 
+
+        // dd($maison->proprietaires);
+        $proprietaire = Proprietaire::where([
+                ['user_id', Auth::user()->id],
+                ['maison_id', $maison->id]
+        ])->orderBy('fin_possession', 'desc')
+        ->first(); 
+
+        // dd($proprietaire); 
+        if ($fixe) {
+            $ancien_appart = Locataire::where([
+                    ['user_id', Auth::user()->id],
+                    ['fixe', true]
+            ])->delete();
+        
 
             $locataire = Locataire::create([
                 'user_id' => Auth::user()->id,
                 'appartement_id' => $appartement->id,
-                'debut_location' => $request->debut_possession,
-                'fin_location' => $request->fin_possession,
+                'debut_location' => $proprietaire->debut_possession,
+                'fin_location' => $proprietaire->fin_possession,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'fixe' => $fixe, 
+                'fixe' => $fixe,
             ]);
-            
-            return redirect()->route('proprietaire.maisons'); 
-
         }
+
+        for ($i=0; $i < $request->nb_pieces; $i++) { 
+    
+            $k = $i+1; 
+            $type_piece = 'type_piece_'.$k; 
+            $piece = 'piece_'.$k; 
+        
+            // dd($request->$type_piece); 
+
+            $nouvelle_piece = Piece::create([
+                                'libelle' => $request->$piece,
+                                'typepiece_id' => $request->$type_piece,
+                                'appartement_id' => $appartement->id,
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now()
+                            ]); 
+        }
+
+        return redirect()->route('proprietaire.appartements', $maison_id); 
     }
 }

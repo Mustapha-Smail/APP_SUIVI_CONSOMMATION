@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Piece;
+use App\Models\Ville;
+use App\Models\Maison;
+use App\Models\Securite;
+use App\Models\Isolation;
+use App\Models\Typepiece;
 use App\Models\Appartement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\Typeappartement;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Locataire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -49,4 +58,176 @@ class LocataireController extends Controller
 
         return view('locataire.pieces', compact('pieces'));
     }
+
+    public function ajoutAppartementLocataire(){
+
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
+            abort(403); 
+        }
+
+        $degres_isolation = Isolation::all(); 
+        $types_appartement = Typeappartement::all();
+        $degres_securite = Securite::all(); 
+        $types_piece = Typepiece::all(); 
+
+
+        return view('locataire.ajout-appartement', compact(
+            'degres_isolation',
+            'types_appartement',
+            'degres_securite',
+            'types_piece'
+        )); 
+    } 
+    
+    public function storeAppartementLocataire(Request $request){
+        // dd($request->nb_pieces);
+
+        if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes
+            abort(403); 
+        }
+
+        // ajout appart 
+        /**
+         * verifier l'adresse
+         * verifier si c'est pas déjà loué 
+         * lier l'appart au user 
+         * verifier si les pieces existent pas 
+         * ajouter les pieces 
+         * les lier a l'appart 
+         */
+
+        $ville = Ville::where([
+                ['code_postal', $request->code_postal],
+                ['nom', $request->ville]
+            ])->first(); 
+
+        // dd($ville);
+
+        if(!$ville){
+            return redirect()->route('locataire.ajout-appartement')
+                            ->withErrors(['error' => 'ville non valide']); 
+        }
+
+        // dd($request->rue); 
+
+        $maison = Maison::where([
+            ['num_rue', $request->num_rue],
+            ['nom_rue', $request->rue],
+            ['ville_id', $ville->id],
+        ])->first(); 
+        
+
+        if(! $maison){
+            return redirect()->route('locataire.ajout-appartement')
+                             ->withErrors(['error' => 'La maison reliee a cette adresse n\'existe pas, merci de demander a votre proprietaire de la renseigner']); 
+        }
+
+        $appartement = Appartement::firstOrCreate(
+            [
+                'num_boite' => $request->num_boite, 
+                'maison_id' => $maison->id,
+            ], 
+            [
+                'nombre_habitants' => $request->nombre_habitants,
+                'typeappartement_id' => $request->type_appartement,
+                'securite_id' => $request->degres_securite,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]
+        ); 
+
+        // dd($appartement); 
+        $location = Locataire::where([
+            ['fin_location', '>', $request->debut_location], 
+            ['appartement_id', $appartement->id], 
+        ])->first();  
+
+        // dd($location); 
+        if($location){
+            return redirect()->route('locataire.ajout-appartement')
+                            ->withErrors(['error' => 'appartement deja loue']); 
+        }
+
+        $fixe = $request->fixe ? true : false; 
+
+        // dd($fixe); 
+        if ($fixe) {
+            $ancienne_location = Locataire::where([
+                    ['user_id', Auth::user()->id],
+                    ['fixe', true]
+            ])->delete();
+        
+
+            $locataire = Locataire::create([
+                'user_id' => Auth::user()->id,
+                'appartement_id' => $appartement->id,
+                'debut_location' => $request->debut_possession,
+                'fin_location' => $request->fin_possession,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'fixe' => $fixe,
+            ]);
+        }
+
+        
+        // $request->nb_pieces; 
+        for ($i=0; $i < $request->nb_pieces; $i++) { 
+    
+            $k = $i+1; 
+            $type_piece = 'type_piece_'.$k; 
+            $piece = 'piece_'.$k; 
+        
+            // dd($request->$type_piece); 
+
+            $nouvelle_piece = Piece::create([
+                                'libelle' => $request->$piece,
+                                'typepiece_id' => $request->$type_piece,
+                                'appartement_id' => $appartement->id,
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now()
+                            ]); 
+        }
+
+        return redirect()->route('locataire.appartements'); 
+    }
+
+    public function ajoutPieceLocataire($id_appartement){
+
+        $appartement = Appartement::whereIn('id', array($id_appartement))->first();
+        
+        if((! Gate::allows('get-locataire-pieces', $appartement) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        $types_piece = Typepiece::all(); 
+        
+        return view('locataire.ajout-piece', compact('types_piece')); 
+    }
+
+    public function storePieceLocataire(Request $request, $id_appartement){
+
+        for ($i=0; $i < $request->nb_pieces; $i++) { 
+    
+            $k = $i+1; 
+            $type_piece = 'type_piece_'.$k; 
+            $piece = 'piece_'.$k; 
+        
+            // dd($request->$type_piece); 
+
+            $nouvelle_piece = Piece::firstOrCreate(
+                            [
+                                'libelle' => $request->$piece,
+                                'typepiece_id' => $request->$type_piece,
+                                'appartement_id' => $id_appartement
+                            ],
+                            [
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now()
+                            ]
+                        ); 
+        }
+
+        return redirect()->route('locataire.pieces', $id_appartement); 
+    }
+
 }
