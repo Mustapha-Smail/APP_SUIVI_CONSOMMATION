@@ -15,8 +15,8 @@ class CreateAppareilmatieresTable extends Migration
     {
         Schema::create('appareilmatieres', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('appareil_id')->constrained(); 
-            $table->foreignId('matiere_id')->constrained(); 
+            $table->foreignId('appareil_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('matiere_id')->constrained()->onDelete('cascade'); 
             $table->integer('conso_emission_heure'); 
             $table->timestamps();
         });

@@ -15,8 +15,8 @@ class CreateLocatairesTable extends Migration
     {
         Schema::create('locataires', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(); 
-            $table->foreignId('appartement_id')->constrained(); 
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('appartement_id')->constrained()->onDelete('cascade'); 
             $table->date('debut_location'); 
             $table->date('fin_location');  // NULLABLE ?? en cas de possession
             $table->boolean('adresse_fixe')->default(0)->change(); 

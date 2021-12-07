@@ -16,10 +16,6 @@ class Typeappareil extends Model
         return $this->hasMany(Appareil::class); 
     }
 
-    public function appareilmatieres(){
-        return $this->hasMany(Appareilmatiere::class); 
-    }
-
     public function videos(){
         return $this->hasMany(Video::class); 
     }

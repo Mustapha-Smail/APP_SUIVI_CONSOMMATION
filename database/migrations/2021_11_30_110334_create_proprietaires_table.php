@@ -15,8 +15,8 @@ class CreateProprietairesTable extends Migration
     {
         Schema::create('proprietaires', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(); 
-            $table->foreignId('maison_id')->constrained(); 
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('maison_id')->constrained()->onDelete('cascade'); 
             $table->date('debut_possession'); 
             $table->date('fin_possession');  // NULLABLE ?? en cas de possession
             $table->timestamps();

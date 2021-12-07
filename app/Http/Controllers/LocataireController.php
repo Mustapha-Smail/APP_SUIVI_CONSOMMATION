@@ -14,7 +14,12 @@ use Illuminate\Support\Carbon;
 use App\Models\Typeappartement;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Appareil;
+use App\Models\Appareilmatiere;
+use App\Models\Consommation;
 use App\Models\Locataire;
+use App\Models\Matiere;
+use App\Models\Typeappareil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -57,6 +62,16 @@ class LocataireController extends Controller
         // dd($pieces); 
 
         return view('locataire.pieces', compact('pieces'));
+    }
+
+    public function piece($piece_id){
+        $piece = Piece::findOrFail($piece_id); 
+        if((! Gate::allows('get-locataire-pieces', $piece->appartement) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        return view('locataire.piece', compact('piece'));
+
     }
 
     public function ajoutAppartementLocataire(){
@@ -229,5 +244,84 @@ class LocataireController extends Controller
 
         return redirect()->route('locataire.pieces', $id_appartement); 
     }
+
+    public function ajoutAppareilLocataire($id_piece){
+
+        $piece = Piece::find($id_piece); 
+
+        if((! Gate::allows('get-locataire-pieces', $piece->appartement) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        $types_appareil = Typeappareil::all(); 
+        $ressources = Matiere::where('ressource', true)->get(); 
+        $substances = Matiere::where('ressource', false)->get(); 
+        
+        return view('locataire.ajout-appareil', compact('types_appareil', 'ressources', 'substances')); 
+    }
+
+    public function storeAppareilLocataire(Request $request, $id_piece){
+        $piece = Piece::findOrFail($id_piece); 
+
+        if((! Gate::allows('get-locataire-pieces', $piece->appartement) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        /**
+         * ajout appareil
+         * libelle & description
+         * libelle unique
+         * type appareil
+         * consommation => choix
+         * emission => choix 
+         * conso / h 
+        */
+
+        // dd($request); 
+
+        $appareil = Appareil::create([
+            'libelle' => $request->appareil,
+            'description' => $request->description,
+            'typeappareil_id' => $request->type_appareil,
+            'piece_id' => $piece->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]); 
+
+        $nb_ressources = $request->nb_ressources; 
+        $nb_substances = $request->nb_substances; 
+        
+        for ($i=0; $i < $nb_ressources; $i++) { 
+            $k = $i+1;  
+            $ressource = 'ressource_'.$k; 
+            $consommation = 'conso_heure_ressource_'.$k;
+
+            $nouvelle_ressource = Appareilmatiere::create([
+                'appareil_id' => $appareil->id,
+                'matiere_id' => $request->$ressource,
+                'conso_emission_heure' => $request->$consommation,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]); 
+        }
+
+        for ($i=0; $i < $nb_substances; $i++) { 
+            $k = $i+1;  
+            $substance = 'substance_'.$k; 
+            $emission = 'conso_heure_substance_'.$k;
+
+            $nouvelle_substance = Appareilmatiere::create([
+                'appareil_id' => $appareil->id,
+                'matiere_id' => $request->$substance,
+                'conso_emission_heure' => $request->$emission,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]); 
+        }
+
+        return redirect()->route('locataire.piece', $piece->id); 
+
+    }
+
 
 }

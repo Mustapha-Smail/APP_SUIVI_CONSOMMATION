@@ -15,8 +15,8 @@ class CreateConsommationsTable extends Migration
     {
         Schema::create('consommations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('appareil_id')->constrained(); 
-            $table->foreignId('matiere_id')->constrained(); 
+            $table->foreignId('appareil_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('matiere_id')->constrained()->onDelete('cascade'); 
             $table->dateTime('consommation'); 
             $table->timestamps();
         });
