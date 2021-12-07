@@ -48,6 +48,7 @@ Route::get('/ajout-pieces-locataire/{id_appartement}',[LocataireController::clas
 Route::post('/ajout-pieces-locataire/{id_appartement}',[LocataireController::class, 'storePieceLocataire'])->middleware(['auth','verified']);
 Route::get('/ajout-appareils-locataire/{id_piece}',[LocataireController::class, 'ajoutAppareilLocataire'])->middleware(['auth','verified'])->name('locataire.ajout-appareil');
 Route::post('/ajout-appareils-locataire/{id_piece}',[LocataireController::class, 'storeAppareilLocataire'])->middleware(['auth','verified']);
+Route::post('/consommation',[LocataireController::class, 'consommation'])->middleware(['auth','verified'])->name('locataire.consommation');
 
 require __DIR__.'/auth.php';
 

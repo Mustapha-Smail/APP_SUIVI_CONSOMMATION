@@ -267,18 +267,6 @@ class LocataireController extends Controller
             abort(403); 
         }
 
-        /**
-         * ajout appareil
-         * libelle & description
-         * libelle unique
-         * type appareil
-         * consommation => choix
-         * emission => choix 
-         * conso / h 
-        */
-
-        // dd($request); 
-
         $appareil = Appareil::create([
             'libelle' => $request->appareil,
             'description' => $request->description,
@@ -321,6 +309,48 @@ class LocataireController extends Controller
 
         return redirect()->route('locataire.piece', $piece->id); 
 
+    }
+
+    public function consommation(Request $request){
+        
+        $appareil = Appareil::findOrFail($request->appareil); 
+
+
+        // dd($appareil->appareilmatieres);
+
+        // if((! Gate::allows('get-locataire-pieces', $appareil->piece->appartement) || (Gate::allows('admin')))){
+        //     abort(403); 
+        // }
+        
+        $consommation = Consommation::create([
+            'appareil_id' => $request->appareil,
+            'matiere_id' => $request->ressource,
+            'consommation' => $request->conso_heure,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]); 
+
+        $appareilmatieres = $appareil->appareilmatieres; 
+        
+        foreach ($appareilmatieres as $appareilmatiere) {
+            $matiere = Matiere::where([
+                ['id', $appareilmatiere->matiere_id],
+                ['ressource', false]
+            ])->first(); 
+            
+            if($matiere){
+                // dd($matiere->id); 
+                
+                $substance = Consommation::create([
+                    'appareil_id' => $appareil->id,
+                    'matiere_id' => $matiere->id,
+                    'consommation' => $appareilmatiere->conso_emission_heure,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+                
+            }
+        }
     }
 
 

@@ -39,6 +39,7 @@
                                 <p class="card-text">
                                     {{$appareil->description}}
                                 </p>
+
                                 <p class="card-text">
                                     {{-- {{$appareil->appareilmatieres}} --}}
                                     Ressources: <br>
@@ -50,25 +51,36 @@
                                         -
                                     @endforelse
                                 </p>
-
+                                
                                 <p class="card-text">
                                     {{-- {{$appareil->appareilmatieres}} --}}
                                     Substances: <br>
                                     @forelse ($appareil->appareilmatieres as $appareilmatiere)
-                                        @if (! $appareilmatiere->matiere->ressource)
-                                            {{$appareilmatiere->matiere->libelle}}<br>
-                                        @endif    
+                                    @if (! $appareilmatiere->matiere->ressource)
+                                    {{$appareilmatiere->matiere->libelle}}<br>
+                                    @endif    
                                     @empty
-                                        -
+                                    -
                                     @endforelse
                                 </p>
-
+                                
                             </div>
                             <div class="card-footer">
-                                <input type="number" name="ressource" hidden value="0">
-                                <button type="button" class=" consommation btn btn-primary float-right">
-                                    consommer
-                                </button>
+                                @forelse ($appareil->appareilmatieres as $appareilmatiere)
+                                    @if ($appareilmatiere->matiere->ressource)
+                                        <form action="{{route('locataire.consommation')}}" method="POST" class="form-consommation">
+                                            @csrf
+                                            <input type="number" name="conso_heure" hidden value="{{$appareilmatiere->conso_emission_heure}}">
+                                            <input type="text" name="appareil" hidden value="{{$appareil->id}}">
+                                            <input type="text" name="ressource" hidden value="{{$appareilmatiere->matiere->id}}">
+                                            <button type="submit" class="mx-2 consommation btn btn-primary float-right">
+                                                consommer - {{$appareilmatiere->matiere->libelle}}
+                                            </button>
+                                        </form>
+                                    @endif    
+                                @empty
+                                @endforelse
+                                
                             </div>
                         </div><br>
                     @empty
@@ -95,10 +107,21 @@
 @section('js')
     <script>
         // console.log($('.consommation'));
-
-        let buttons = $('.consommation')
-        Array.from(buttons).forEach(button => {
-            $conso
+        $('.form-consommation').on('submit', function (e) {
+            // console.log($(this).entries());
+            e.preventDefault();
+            $.ajax({
+                url: "{{route('locataire.consommation')}}",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function (data) {
+                    alert("consommation d'une heure");
+                },
+                error: function (jXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+            // console.log(url);
         });
     </script>
 @endsection

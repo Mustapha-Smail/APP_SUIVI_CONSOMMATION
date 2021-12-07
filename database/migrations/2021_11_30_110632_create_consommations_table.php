@@ -17,7 +17,7 @@ class CreateConsommationsTable extends Migration
             $table->id();
             $table->foreignId('appareil_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('matiere_id')->constrained()->onDelete('cascade'); 
-            $table->dateTime('consommation'); 
+            $table->integer('consommation'); 
             $table->timestamps();
         });
     }
