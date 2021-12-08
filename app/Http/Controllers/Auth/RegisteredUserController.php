@@ -24,8 +24,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        $villes = Ville::all(); 
-        return view('auth.register', compact('villes'));
+        return view('auth.register');
     }
 
     /**
