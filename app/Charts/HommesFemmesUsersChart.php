@@ -16,8 +16,8 @@ class HommesFemmesUsersChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $utilisateurs_hommes = User::where('genre', '=', 'M')->get(); 
-        $utilisateurs_femmes = User::where('genre', '=', 'F')->get(); 
+        $utilisateurs_hommes = User::where([['genre', '=', 'M'], ['admin', '<>', true]])->get(); 
+        $utilisateurs_femmes = User::where([['genre', '=', 'F'], ['admin', '<>', true]])->get(); 
         // dd(count($utilisateurs_femmes)); 
         return $this->chart->pieChart()
             ->setTitle('Histogramme du nombre d’hommes et de femmes inscrits sur le site')

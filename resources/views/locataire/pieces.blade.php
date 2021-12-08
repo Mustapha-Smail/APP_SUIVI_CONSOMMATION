@@ -48,6 +48,9 @@
                         </center>
                     @endforelse
                 </div>
+                <div class="col-sm-3">
+                    <a href="{{route('locataire.consommations', [Request::segment(2)])}}" class="btn btn-lg btn-warning float-right">Consommation</a>
+                </div>
             </div>
             <footer class="text-center">
                 <small>&copy; 2021 - Le trio</small>

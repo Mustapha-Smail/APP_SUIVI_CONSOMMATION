@@ -3,28 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Charts\HommesFemmesUsersChart;
-use App\Charts\MonthlyUsersChart;
+use App\Charts\LocataireConsommationChart;
 use App\Charts\UsersAgeChart;
 use App\Charts\UsersByAgeChart;
-use App\Models\Maison;
-use App\Models\Appartement;
 use App\Models\Locataire;
-use App\Models\Proprietaire;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Khill\Lavacharts\Lavacharts as Lava; 
-// use Khill\Lavacharts\Laravel\LavachartsFacade as lavaL
 
 class DashboardController extends Controller
 {
 
     public function index(
         HommesFemmesUsersChart $chart, 
-        UsersByAgeChart $usersbyage
+        UsersByAgeChart $usersbyage,
+        LocataireConsommationChart $locataireConsommationChart
     )
     {
         $user = Auth::user(); 
@@ -38,7 +31,10 @@ class DashboardController extends Controller
         }
 
         else{
-            return view('dashboard', compact('user'));
+            return view('dashboard', [
+                'user' => $user,
+                'locataireConsommationChart' => $locataireConsommationChart->build()
+            ]);
         }
     }
 

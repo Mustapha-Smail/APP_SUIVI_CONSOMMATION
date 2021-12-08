@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\LocataireSuiviConsommationParMois;
 use App\Models\Piece;
 use App\Models\Ville;
 use App\Models\Maison;
@@ -171,18 +172,17 @@ class LocataireController extends Controller
                     ['user_id', Auth::user()->id],
                     ['fixe', true]
             ])->delete();
-        
+        }
 
-            $locataire = Locataire::create([
+        $locataire = Locataire::create([
                 'user_id' => Auth::user()->id,
                 'appartement_id' => $appartement->id,
-                'debut_location' => $request->debut_possession,
-                'fin_location' => $request->fin_possession,
+                'debut_location' => $request->debut_location,
+                'fin_location' => $request->fin_location,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'fixe' => $fixe,
             ]);
-        }
 
         
         // $request->nb_pieces; 
@@ -353,5 +353,29 @@ class LocataireController extends Controller
         }
     }
 
+    public function getConsommations($id_appartement){
+        $appartement = Appartement::findOrFail($id_appartement);
+        
+        if((! Gate::allows('get-locataire-pieces', $appartement) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        
+        $ressources = Matiere::where('ressource', true)->get();
+        // dd($ressources);
+
+        return view('locataire.consommations', compact('ressources'));
+    }
+
+    public function postConsommations(Request $request, $id_appartement, LocataireSuiviConsommationParMois $chart){
+        $appartement = Appartement::findOrFail($id_appartement);
+        
+        if((! Gate::allows('get-locataire-pieces', $appartement) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        $chart = $chart->build($appartement->id, $request->ressource); 
+        return redirect()->route('locataire.consommations', [$appartement->id])->with(['chart' => $chart]); 
+    }
 
 }

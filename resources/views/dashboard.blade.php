@@ -21,10 +21,20 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="row p-3">
+                        <div class="col-sm-6 offset-sm-3 rounded shadow w-auto">
+                            {!! $locataireConsommationChart->container() !!}
+                        </div> 
+                    </div>
                     
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="{{ $locataireConsommationChart->cdn() }}"></script>
+
+    {{ $locataireConsommationChart->script() }}
 
 @endsection
