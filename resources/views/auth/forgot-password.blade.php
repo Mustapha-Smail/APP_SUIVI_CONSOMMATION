@@ -1,36 +1,55 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts/app')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@section('content')
+
+    @if ($errors->any())
+        <div class="container auth pd-3">
+            <ul class="text-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.email') }}">
+    
+     <div class="container auth">
+        <form method="POST" action="{{ route('password.email') }}" class="w-75 shadow form">
             @csrf
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+            <!-- Connexion -->
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>
+                        Réinitialisation mot de passe
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @if (session('status'))
+                        <small class="p-2 text-success font-weight-bold">
+                            Un nouveau lien de réinitialisation a été envoyé à l'adresse e-mail que vous avez fournie lors de
+                            l'inscription.
+                        </small>
+                    @endif
+                    <div class="form-group">
+                        Mot de passe oublié? Aucun problème.
+                        <br> Communiquez-nous simplement votre adresse e-mail et nous
+                        vous enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en
+                        choisir un nouveau.
+                    </div>
+                    <div class="form-group">
+                      <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group text-right login-div">
+                        <button type="submit" class="btn btn-connexion">
+                            RÉINITIALISER
+                        </button>
+                    </div>
+                    
+                </div>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+    
+@endsection

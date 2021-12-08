@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600;700&family=Mulish:wght@300&display=swap');
+
+:root {
+    --color-1: #B9C253;
+    --color-2: #D4DC83;
+    --color-3: #414230;
+    --color-4: #888F3D;
+    --color-5: #3F421D;
+    --font-corps: 'Mulish', sans-serif;
+    --font-titre: 'Dosis', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-corps);
+}
+
+a {
+    text-decoration: none;
+    /* color: whitesmoke;  */
+    font-family: var(--font-titre);
+    padding: 0;
+    border: 0;
+}
+
+
+li {
+    list-style: none;
+    display: inline-block;
+    padding-right: 0.8rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-titre);
+    color: var(--color-3);
+}
+
+
+.navbar {
+    height: 10vh;
+    background-color: var(--color-4);
+}
+
+.navbar-brand {
+    max-width: 12rem;
+    max-height: 12rem;
+    /* padding: 0.6rem; */
+    position: absolute;
+    left: 2%;
+}
+
+.logo {
+    width: 100%;
+}
+
+.nav-link {
+    color: whitesmoke;
+    font-family: var(--font-titre);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.nav-link:hover {
+    color: var(--color-3);
+}
+
+.nav-ul {
+    position: absolute;
+    right: 50%;
+}
+
+.nav-btn {
+    position: absolute;
+    right: 2%;
+}
+
+.connecter {
+    color: whitesmoke;
+    font-family: var(--font-titre);
+}
+
+.inscrire {
+    color: whitesmoke;
+    font-family: var(--font-titre);
+    background-color: var(--color-2);
+}
+
+.header {
+    background-image: url(/images/home-image.jpg?95c597c2128b8bd7adb2d3034837d58d);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width: 100vw;
+    height: 90vh;
+    /* padding-left: 5%;  */
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.header-content {
+    color: whitesmoke;
+    width: 45%;
+}
+
+.title {
+    color: whitesmoke;
+    font-family: Dosis,
+        sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.subtitle {
+    font-family: Dosis, sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+/*  */
+
+.container.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75vw;
+    /* height: 80vh; */
+    padding: 3rem;
+}
+
+.card-header {
+    background-color: var(--color-4);
+    color: whitesmoke;
+    font-family: var(--font-titre);
+    font-weight: 600;
+}
+
+.btn-connexion {
+    background-color: var(--color-2);
+}
+
+.login-div {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.forgot-password {
+    padding-right: 0.5rem;
+    text-decoration: underline;
+}
+
+/*  */
+
+footer {
+    margin: 0.3rem;
+}
+
+footer .link-dark {
+    text-decoration: none;
+    color: var(--color-3);
+    font-family: var(--font-titre);
+    font-weight: 600;
+}
+
+footer .link-dark:hover {
+    color: var(--color-4);
+}
+
+.btn-footer {
+    background-color: var(--color-1);
+    color: whitesmoke;
+}

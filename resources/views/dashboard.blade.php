@@ -1,17 +1,40 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts/dashboard-app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+@section('content')
+    
+    <div class="container">
+        <div class="container-body">
+            <div class="row">
+                <div class="col-sm-12 pb-3">
+                    <h1>Hello {{$user->prenom}} !</h1>
+                </div>
+                <div class="col-sm-6 offset-sm-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a href="{{route('proprietaire.maisons')}}" class="btn btn-lg btn-success">
+                                Mes propriétés
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="{{route('locataire.appartements')}}" class="btn btn-lg btn-success">
+                                Mes locations
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row p-3">
+                        <div class="col-sm-6 offset-sm-3 rounded shadow w-auto">
+                            {!! $locataireConsommationChart->container() !!}
+                        </div> 
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+    <script src="{{ $locataireConsommationChart->cdn() }}"></script>
+
+    {{ $locataireConsommationChart->script() }}
+
+@endsection

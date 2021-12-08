@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600;700&family=Mulish:wght@300&display=swap');
+
+:root {
+    --color-1: #B9C253;
+    --color-2: #D4DC83;
+    --color-3: #414230;
+    --color-4: #888F3D;
+    --color-5: #3F421D;
+    --font-corps: 'Mulish', sans-serif;
+    --font-titre: 'Dosis', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-corps);
+}
+
+a {
+    text-decoration: none;
+    font-family: var(--font-titre);
+}
+
+
+li {
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-titre);
+    color: var(--color-3);
+}
+
+.side-menu {
+    position: fixed;
+    background: var(--color-4);
+    width: 15vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.side-menu .brand-name {
+    height: 7vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-4);
+}
+
+.side-menu .brand-name a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-menu li {
+    font-size: 1.5rem;
+    padding: 0.62rem 1.5rem;
+    color: var(--color-2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.side-menu li:first-child {
+    margin-top: 5rem;
+}
+
+.side-menu li:last-child {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+
+.side-menu li:hover,
+.side-menu li a:hover {
+    background-color: var(--color-2);
+    color: var(--color-4)
+}
+
+.side-menu li a {
+    font-size: 1.5rem;
+    color: var(--color-2);
+    text-decoration: none; 
+    font-family: var(--font-corps); 
+}
+
+
+.container {
+    position: absolute;
+    min-width: 85vw;
+    max-width: 85vw;
+    min-height: 93vh;
+    right: 0;
+    top: 7vh;
+}
+
+.header {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85vw;
+    height: 7vh;
+    padding: 0 1rem 0 2rem;
+    background-color: var(--color-4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 .25rem .5rem rgba(0, 0, 0, 0.2);
+
+}
+
+.container .container-body {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 93vh;
+    width: 85vw;
+    padding: 2rem;
+}
+
+.header .nav {
+    flex: 3
+}
+
+.header .user {
+    flex: 0;
+    padding: 0;
+}
+
+.btn-search:hover {
+    background-color: var(--color-2);
+}
+
+.profile-picture {
+    font-size: 2.8rem;
+    color: var(--color-3);
+}
+
+.profile-picture:hover {
+    color: var(--color-1);
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 1050px) {
+    .side-menu .brand-name h1 {
+        font-size: 1.5rem;
+    }
+
+    .side-menu li,
+    .side-menu li a {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .side-menu li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .side-menu li .side-li-text {
+        display: none;
+    }
+
+    .side-menu li .material-icons {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2.5rem;
+    }
+}

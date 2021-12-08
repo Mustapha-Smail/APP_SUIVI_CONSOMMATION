@@ -1,59 +1,88 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts/app')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('content')
 
-        <form method="POST" action="{{ route('register') }}">
+    @if ($errors->any())
+        <div class="container auth pd-3">
+            <ul class="text-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="container auth">
+        <form action="{{route('register')}}" method="POST" class="w-50 shadow form">
+            <!-- Coordonnées -->
             @csrf
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>
+                        1- Coordonnées
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" name="nom" id="nom_register" class="form-control" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="prenom" id="prenom_register" class="form-control" placeholder="Votre prenom"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="date_naissance" id="date_naissance_register" class="form-control"
+                            placeholder="Votre date de naissance" required aria-describedby="HelpDateNaisance">
+                        <small id="helpDateNaissance" class="text-muted">Votre date de naissance</small>
+                    </div>
+                    <div class="form-group">
+                        <small class="text-muted">
+                            Genre: 
+                        </small>
+                        <select name="genre" id="genre" class="form-select" aria-label="Default select example" required
+                            autofocus="">
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="O">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="num_tel" id="num_tel_register" class="form-control" pattern="[0]{1}[0-9]{9}"
+                            required placeholder="Votre numéro de téléphone" aria-describedby="helpNumTel">
+                        <small id="helpNumTel" class="text-muted">Format: 0XXXXXXXXX</small>
+                    </div>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                </div>
             </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+             <!-- Identifiants -->
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+             <div class="card text-left">
+                 <div class="card-header">
+                     <div class="d-inline float-left">
+                         <h3>2- Identifiants</h3>
+                     </div>
+                 </div>
+                 <div class="card-body d-none" id="identifiants-card-register">
+                     <div class="form-group">
+                         <input type="email" name="email" id="email" class="form-control" placeholder="Votre email"
+                             required>
+                     </div>
+                     <div class="form-group">
+                         <input type="password" name="password" id="password" class="form-control"
+                             placeholder="Votre mot de passe" required>
+                     </div>
+                     <div class="form-group">
+                         <input type="password" name="password_confirmation" id="password_confirmation"
+                             class="form-control" placeholder="Confirmez votre mot de passe" required>
+                     </div>
+                     <br>
+                     <div class="form-group d-inline float-right">
+                         <button type="submit" class="btn btn-lg btn-connexion">Créer</button>
+                     </div>
+                 </div>
+             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+
+@endsection

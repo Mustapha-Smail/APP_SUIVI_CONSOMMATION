@@ -1,36 +1,45 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts/app')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@section('content')
+
+    @if ($errors->any())
+        <div class="container auth pd-3">
+            <ul class="text-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.confirm') }}">
+    <div class="container auth">
+        <form method="POST" action="{{ route('password.confirm') }}" class="w-75 shadow form">
             @csrf
+            <!-- Connexion -->
 
-            <!-- Password -->
-            <div>
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
-
-            <div class="flex justify-end mt-4">
-                <x-button>
-                    {{ __('Confirm') }}
-                </x-button>
+            <div class="card text-left">
+                <div class="card-header">
+                    <h3>
+                        Confirmation mot de passe
+                    </h3>
+                </div>
+                <div class="card-body">   
+                    <div class="form-group">
+                        Il s'agit d'une zone sécurisée de l'application.
+                        <br> Veuillez confirmer votre mot de passe avant de
+                        continuer.
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe actuel">
+                    </div>
+                    <div class="form-group text-right login-div">
+                        <button type="submit" class="btn btn-connexion">
+                            CONFIRMER
+                        </button>
+                    </div>
+                    
+                </div>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+@endsection

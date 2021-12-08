@@ -24,9 +24,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->unsignedBigInteger('num_tel'); 
-            $table->foreignId('adresse_id'); 
+            $table->string('num_tel'); 
             $table->timestamps();
+            $table->boolean('admin')->default(0);
+            $table->boolean('activite')->default(1); 
         });
     }
 

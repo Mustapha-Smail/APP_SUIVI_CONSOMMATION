@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Adresse;
+use App\Models\Locataire;
+use App\Models\Commentaire;
+use App\Models\Proprietaire;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,9 +22,16 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'identifiant',
+        'nom',
+        'prenom',
+        'date_naissance',
+        'genre',
         'email',
         'password',
+        'num_tel',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -41,4 +52,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $dates = [
+        'date_naissance',
+        'created_at',
+        'expired_at',
+    ];
+
+    public function proprietaires(){
+        return $this->hasMany(Proprietaire::class); 
+    }
+
+    public function locataires(){
+        return $this->hasMany(Locataire::class); 
+    }
+
+    public function commentaires(){
+        return $this->hasMany(Commentaire::class); 
+    }
+
+    // LIKE DISLIKE VUE A REVOIR 
+    
 }
