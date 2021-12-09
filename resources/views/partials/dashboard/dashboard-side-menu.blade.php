@@ -6,37 +6,45 @@
     </div>
     <ul>
         <li>
-            <span class="material-icons" title="Dashboard">
-                dashboard
-            </span>
-            <a href="{{route('dashboard')}}" class="side-li-text">Dashboard</a>
+            <a href="{{route('dashboard')}}">
+                <span class="material-icons" title="Dashboard">
+                    dashboard
+                </span>
+                <span class="side-li-text">Dashboard</span>
+            </a>
         </li>
         <li>
-            <span class="material-icons" title="Profile">
-                account_circle
-            </span>
-            <a href="{{route('profile')}}" class="side-li-text">Profile</a>
+            <a href="{{route('profile')}}">
+                <span class="material-icons" title="Profile">
+                    account_circle
+                </span>
+                <span class="side-li-text">Profile</span>
+            </a>
         </li>
         <li>
-            <span class="material-icons" title="Home">
-                home
-            </span>
-            <span class="side-li-text">Home</span>
+            <a href="{{route('proprietaire.maisons')}}">
+                <span class="material-icons" title="Home">
+                    home
+                </span>
+                <span class="side-li-text">Mes proprietés</span>
+            </a>
         </li>
         <li>
-            <span class="material-icons" title="Settings">
-                settings
-            </span>
-            <span class="side-li-text">Settings</span>
+            <a href="{{route('locataire.appartements')}}">
+                <span class="material-icons">
+                    apartment
+                </span>
+                <span class="side-li-text">Mes locations</span>
+            </a>
         </li>
         <li>
-            <span class="material-icons" title="Log out">
-                logout
-            </span>
             <form action="{{route('logout')}}" method="post" id="logout">
                 @csrf
-                <a class="side-li-text" onclick="document.getElementById('logout').submit()">
-                    Log out
+                <a onclick="document.getElementById('logout').submit()">
+                    <span class="material-icons" title="Log out">
+                        logout
+                    </span>
+                    <span class="side-li-text">Log out</span> 
                 </a>
             </form>
         </li>

@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="container auth">
-        <form action="{{route('login')}}" method="POST" class="w-50 shadow form">
+        <form action="{{route('login')}}" method="POST" class="w-100 shadow form">
 
             @csrf
 

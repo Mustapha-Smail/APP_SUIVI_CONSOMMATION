@@ -64,7 +64,7 @@ class LocataireSuiviConsommationParMois
         // dd(count($conso)); 
 
         return $this->chart->lineChart()
-            ->setTitle('Consommation '.$matiere->libelle.' '.Carbon::now()->year)
+            ->setTitle($matiere->libelle.' '.Carbon::now()->year)
             ->setSubtitle($appartement->maison->num_rue.' '.$appartement->maison->nom_rue.' '.$appartement->maison->ville->code_postal.'\n'.$appartement->maison->ville->nom)
             ->addData('',array_values($conso))
             ->setXAxis(['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']);

@@ -22,21 +22,27 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-9">
-                    @forelse ($appartements as $appartement)
+                    @forelse ($locations as $location)
                         <div class="card w-100 shadow">
                         <div class="card-header">
-                            {{$appartement->num_boite}}
+                            {{$location->appartement->maison->num_rue}}
+                            {{$location->appartement->maison->nom_rue.','}}
+                            appartement
+                            {{$location->appartement->num_boite.','}}
+                            {{$location->appartement->maison->ville->code_postal}}
+                            {{$location->appartement->maison->ville->nom}}
                         </div>
                         <div class="card-body">
                             <div class="card-title">
-                                <h6>{{App\Models\Typeappartement::find($appartement->typeappartement_id)->libelle}}</h6>
-                                <p>{{$appartement->nombre_habitants}} habitants</p>
+                                <h6>{{$location->appartement->typeappartement->libelle}}</h6>
+                                <p>{{$location->appartement->nombre_habitants}} habitants</p>
                             </div>
                             <p class="card-text">
-                                Loué depuis, {{ Carbon\Carbon::parse($appartement->debut_location)->format('Y-m-d') }}
+                                Location: {{$location->debut_location->format('d/m/Y') }} jusqu'à {{$location->fin_location->format('d/m/Y') }}
                             </p>
-                            <a href="{{route('locataire.pieces', [$appartement->id])}}" class="btn btn-primary float-right">
+                            <a href="{{route('locataire.pieces', [$location->appartement->id])}}" class="btn btn-primary float-right">
                                 Pièces
                                 <span class="material-icons">
                                     forward
@@ -50,6 +56,7 @@
                         </center>
                     @endforelse
                 </div>
+
             </div>
             <footer class="text-center">
                 <small>&copy; 2021 - Le trio</small>

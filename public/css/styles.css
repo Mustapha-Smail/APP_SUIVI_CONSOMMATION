@@ -100,7 +100,7 @@ h6 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    width: 100vw;
+    width: 100%;
     height: 90vh;
     /* padding-left: 5%;  */
     display: flex;
@@ -110,7 +110,7 @@ h6 {
 
 .header-content {
     color: whitesmoke;
-    width: 45%;
+    width: 100%;
 }
 
 .title {
@@ -133,7 +133,7 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 75vw;
+    width: 45vw;
     /* height: 80vh; */
     padding: 3rem;
 }
@@ -180,5 +180,23 @@ footer .link-dark:hover {
 .btn-footer {
     background-color: var(--color-1);
     color: whitesmoke;
+}
+
+@media screen and (max-width: 768px) {
+    .container.auth{
+        width: 100vw;
+    }
+
+    .title{
+        font-size:xx-large;
+    }
+
+    .subtitle{
+        font-size:large;
+    }
+
+    .header-content{
+        padding: 0 1rem; 
+    }
 }
 

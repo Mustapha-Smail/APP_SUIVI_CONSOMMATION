@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Charts\HommesFemmesUsersChart;
 use App\Charts\LocataireConsommationChart;
+use App\Charts\LocataireEmissionChart;
+use App\Charts\ProprietaireConsommationChart;
+use App\Charts\ProprietaireEmissionChart;
 use App\Charts\UsersAgeChart;
 use App\Charts\UsersByAgeChart;
 use App\Models\Locataire;
@@ -17,7 +20,10 @@ class DashboardController extends Controller
     public function index(
         HommesFemmesUsersChart $chart, 
         UsersByAgeChart $usersbyage,
-        LocataireConsommationChart $locataireConsommationChart
+        LocataireConsommationChart $locataireConsommationChart,
+        LocataireEmissionChart $locataireEmissionChart,
+        ProprietaireEmissionChart $proprietaireEmissionChart,
+        ProprietaireConsommationChart $proprietaireConsommationChart
     )
     {
         $user = Auth::user(); 
@@ -33,7 +39,10 @@ class DashboardController extends Controller
         else{
             return view('dashboard', [
                 'user' => $user,
-                'locataireConsommationChart' => $locataireConsommationChart->build()
+                'locataireConsommationChart' => $locataireConsommationChart->build(),
+                'locataireEmissionChart' => $locataireEmissionChart->build(),
+                'proprietaireEmissionChart' => $proprietaireEmissionChart->build(),
+                'proprietaireConsommationChart' => $proprietaireConsommationChart->build()
             ]);
         }
     }

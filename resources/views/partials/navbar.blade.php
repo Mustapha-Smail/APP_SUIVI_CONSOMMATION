@@ -5,18 +5,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{route('accueil')}}">Accueil</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{{route('villes')}}">Villes</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
-        </ul>
-        
-        <div class="nav-btn">
-            <a class="btn connecter" href="{{route('login')}}">Se connecter</a>
-            <a class="btn inscrire" href="{{route('register')}}">S'inscrire</a>    
-        </div>
-
+        </ul>        
     </div>
+
+    <div class="nav-btn">
+        <a class="btn connecter" href="{{route('login')}}">Se connecter</a>
+        <a class="btn inscrire" href="{{route('register')}}">S'inscrire</a>    
+    </div>
+    
 </nav>

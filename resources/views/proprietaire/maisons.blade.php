@@ -22,30 +22,29 @@
                     </div>
                 </div>
                 <div class="col-sm-9">
-                    @forelse ($maisons as $maison)
+                    @forelse ($proprietes as $propriete)
                         <div class="card w-100 shadow">
                         <div class="card-header">
-                            {{$maison->nom}}
+                            {{$propriete->maison->num_rue}}
+                            {{$propriete->maison->nom_rue.','}}
+                            {{$propriete->maison->ville->code_postal}}
+                            {{$propriete->maison->ville->nom}}
                         </div>
                         <div class="card-body">
                             <div class="card-title">
-                                <h6>{{$maison->num_rue}}, {{$maison->nom_rue}}</h6>
-                                <p>{{$maison->nom_ville}}, {{$maison->code_postal}}</p>
+                                <h6>{{count($propriete->maison->appartements)}} Appartement(s)</h6>
                             </div>
                             <p class="card-text">
-                                Depuis, {{ Carbon\Carbon::parse($maison->debut_possession)->format('Y-m-d') }}
+                                Proprieté: {{$propriete->debut_possession->format('d/m/Y') }} jusqu'à {{$propriete->fin_possession->format('d/m/Y') }}
                             </p>
                             <p class="card-text">
-                                Degrès d'isolation: {{
-                                    App\Models\Isolation::find($maison->isolation_id)->libelle
-                                }}
+                                Degrés d'isolation: {{$propriete->maison->isolation->libelle}}
                             </p>
                             <p class="card-text">
-                                Status écologique: {{
-                                    App\Models\Statusecologique::find($maison->statusecologique_id)->libelle
-                                }}
+                                Status ecologique: {{$propriete->maison->statusecologique->libelle}}
                             </p>
-                            <a href="{{route('proprietaire.appartements', [$maison->id])}}" class="btn btn-primary float-right">
+                            <a href="{{route('proprietaire.appartements', [$propriete->maison->id])}}" class="btn btn-primary float-right">
+                                Appartements
                                 <span class="material-icons">
                                     forward
                                 </span>
@@ -54,7 +53,7 @@
                     </div><br>
                     @empty
                         <center>
-                        <a href="{{route('proprietaire.ajout-maison')}}" class="btn btn-lg btn-success">Ajouter une maison</a>
+                        <a href="{{route('proprietaire.ajout-maison')}}" class="btn btn-lg btn-success">Ajouter un appartement</a>
                         </center>
                     @endforelse
                 </div>

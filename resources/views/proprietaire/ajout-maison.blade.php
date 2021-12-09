@@ -31,7 +31,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="nom">Nom maison</label>
-                                        <input type="text" name="nom" id="nom" class="form-control">
+                                        <input type="text" name="nom" id="nom" class="form-control" required>
                                     </div>
 
                                     <div class="form-group">
@@ -43,22 +43,22 @@
 
                                     <div class="form-group">
                                         <label for="num_rue">N° rue</label>
-                                        <input type="number" name="num_rue" class="form-control" id="num_rue" readonly>
+                                        <input type="number" name="num_rue" class="form-control" id="num_rue" readonly required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="rue">Rue</label>
-                                        <input type="text" name="rue" class="form-control" id="rue" readonly>
+                                        <input type="text" name="rue" class="form-control" id="rue" readonly required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="code_postal">Code Postal</label>
-                                        <input type="number" name="code_postal" class="form-control" id="code_postal" readonly>
+                                        <input type="number" name="code_postal" class="form-control" id="code_postal" readonly required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="ville">Ville</label>
-                                        <input type="text" name="ville" class="form-control" id="ville" readonly>
+                                        <input type="text" name="ville" class="form-control" id="ville" readonly required>
                                     </div>
 
                                     <div class="form-check form-switch">
@@ -76,17 +76,17 @@
 
                                     <div class="form-group">
                                       <label for="debut_possession">Date de début de possession</label>
-                                      <input type="date" name="debut_possession" id="debut_possession" class="form-control" >
+                                      <input type="date" name="debut_possession" id="debut_possession" class="form-control"  required>
                                     </div>
                                     
                                     <div class="form-group">
                                       <label for="fin_possession">Date de fin de possession</label>
-                                      <input type="date" name="fin_possession" id="fin_possession" class="form-control" >
+                                      <input type="date" name="fin_possession" id="fin_possession" class="form-control"  required>
                                     </div>
 
                                     <div class="form-group">
                                       <label for="nombre_habitants">Nombre d'habitants</label>
-                                      <input type="number" name="nombre_habitants" id="nombre_habitants" class="form-control" >
+                                      <input type="number" name="nombre_habitants" id="nombre_habitants" class="form-control"  required>
                                     </div>
 
                                     <div class="form-group">

@@ -21,6 +21,10 @@ class Locataire extends Model
 
     // ];
     protected $guarded = [];
+    protected $dates = [
+        'debut_location',
+        'fin_location',
+    ];
 
 
     public function user(){

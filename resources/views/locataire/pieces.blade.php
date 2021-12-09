@@ -13,15 +13,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 pb-3">
-                    <div class="row justify-content-end">
-                        @if (count($pieces)>0)
-                            <div class="col-4 pr-3">
-                                <a href="{{route('locataire.ajout-piece', [$pieces[0]->appartement->id])}}" class="btn btn-lg btn-primary float-right">Ajouter une piece</a>
-                            </div>   
-                        @endif
-                    </div>
+                <div class="col-sm-4 pb-3 justify-content-start">
+                    <a href="{{route('locataire.consommations', [Request::segment(2)])}}" class="btn btn-lg btn-warning mr-2">Consommation</a>
+                    <a href="{{route('locataire.emissions', [Request::segment(2)])}}" class="btn btn-lg btn-danger mr-2">Emission</a>
                 </div>
+                @if (count($pieces)>0)
+                    <div class="col-sm-4 offset-sm-4 pb-3 pr-3">
+                        <a href="{{route('locataire.ajout-piece', [$pieces[0]->appartement->id])}}" class="btn btn-lg btn-primary float-right">Ajouter une piece</a>
+                    </div>   
+                @endif
+                
                 <div class="col-sm-9">
                     @forelse ($pieces as $piece)
                         <div class="card w-100 shadow">
@@ -47,9 +48,6 @@
                             <a href="{{route('locataire.ajout-piece', [Request::segment(2)])}}" class="btn btn-lg btn-success">Ajouter une pièce</a>
                         </center>
                     @endforelse
-                </div>
-                <div class="col-sm-3">
-                    <a href="{{route('locataire.consommations', [Request::segment(2)])}}" class="btn btn-lg btn-warning float-right">Consommation</a>
                 </div>
             </div>
             <footer class="text-center">

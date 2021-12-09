@@ -2,13 +2,13 @@
 
 namespace App\Charts;
 
-use App\Models\Consommation;
+use Carbon\Carbon;
 use App\Models\Locataire;
+use App\Models\Consommation;
 use Illuminate\Support\Facades\Auth;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use Carbon\Carbon;
 
-class LocataireConsommationChart
+class LocataireEmissionChart
 {
     protected $chart;
 
@@ -26,7 +26,7 @@ class LocataireConsommationChart
                                 ])
                                 ->get();
     
-        $ressources = []; 
+        $substances = []; 
         foreach ($locataires as $locataire) {
             
             $appartement = $locataire->appartement; 
@@ -35,7 +35,7 @@ class LocataireConsommationChart
             foreach ($pieces as $piece) {
 
                 $appareils = $piece->appareils; 
-                $ressources_int = []; 
+                $substances_int = []; 
                 foreach ($appareils as $appareil) {
 
                     $consommations_actuelles = Consommation::where([
@@ -45,34 +45,27 @@ class LocataireConsommationChart
 
                     
                     foreach ($consommations_actuelles as $consommation ) {
-                        if($consommation->matiere->ressource){
-                            // array_push($ressources_int, $consommation->matiere);
-                            if(! isset($ressources_int[$consommation->matiere->libelle])){
-                                $ressources_int[$consommation->matiere->libelle] = $consommation->consommation;
+                        if(!$consommation->matiere->ressource){
+                            if(! isset($substances_int[$consommation->matiere->libelle])){
+                                $substances_int[$consommation->matiere->libelle] = $consommation->consommation;
                             } 
                             else{
-                                $ressources_int[$consommation->matiere->libelle] = $ressources_int[$consommation->matiere->libelle] + $consommation->consommation;
+                                $substances_int[$consommation->matiere->libelle] = $substances_int[$consommation->matiere->libelle] + $consommation->consommation;
                             }
                         }
-
-                        // $ressources = $ressources + $ressources_int;
-                        $ressources = array_merge($ressources, $ressources_int); 
+                        $substances = array_merge($substances, $substances_int); 
                         
                     }
                     
                 }
-                // dd($ressources_int);
             }
         }
 
-        $ressources = array_unique($ressources);
-
-        // dd($ressources, $substances);
-        
+        $substances = array_unique($substances);
 
         return $this->chart->barChart()
-            ->setTitle('Consommations de mes locations: '.Carbon::now()->format('F'))
-            ->addData('', array_values($ressources))
-            ->setXAxis(array_keys($ressources));
+            ->setTitle('Emissions de mes locations: '.Carbon::now()->format('F'))
+            ->addData('', array_values($substances))
+            ->setXAxis(array_keys($substances));
     }
 }

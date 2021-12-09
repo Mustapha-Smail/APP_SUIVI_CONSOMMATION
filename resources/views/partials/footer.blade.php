@@ -11,7 +11,13 @@
             <center><h3>Accès Rapide</h3></center>
             <ul class="footer-ul">
             <li class="list-group-item" style="border:0; ">
-                <a class="link-dark" href="#">Accueil</a>
+                <a class="link-dark" href="{{route('accueil')}}">Accueil</a>
+            </li>
+            <li class="list-group-item" style="border:0; ">
+                <a class="link-dark" href="{{route('login')}}">Se connecter</a>
+            </li>
+            <li class="list-group-item" style="border:0; ">
+                <a class="link-dark" href="{{route('register')}}">S'inscrire</a>
             </li>
             <li class="list-group-item" style="border:0; ">
                 <a class="link-dark" href="#">Contact</a>

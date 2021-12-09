@@ -28,31 +28,19 @@ class ProprietaireController extends Controller
             abort(403); 
         }
 
-        $maisons = DB::table('proprietaires')
-                            ->join('maisons', 'proprietaires.maison_id', 'maisons.id')
-                            ->join('villes', 'maisons.ville_id', 'villes.id')
-                            ->select(
-                                'maisons.*', 
-                                'proprietaires.debut_possession', 
-                                'proprietaires.fin_possession', 
-                                'villes.nom AS nom_ville',
-                                'villes.code_postal'
-                            )
-                            ->where([
-                                ['proprietaires.user_id', '=', $user->id],
-                                ['proprietaires.fin_possession', '>', Carbon::now()],
-                            ])
-                            ->orderByDesc('proprietaires.created_at')
-                            ->get(); 
+        $proprietes = Proprietaire::where([
+            ['user_id', $user->id],
+            ['fin_possession', '>', Carbon::now()]
+        ])->get(); 
 
-        // dd($maisons);
+        // dd($proprietes);
 
-        return view('proprietaire.maisons', compact('user', 'maisons'));
+        return view('proprietaire.maisons', compact('user', 'proprietes'));
     }
 
     public function appartements($maison_id){
         
-        $maison = Maison::whereIn('id', array($maison_id))->first(); 
+        $maison = Maison::findOrFail($maison_id); 
 
         if ((! Gate::allows('get-proprietaire-appartements', $maison)) || (Gate::allows('admin'))) {
             abort(403); 

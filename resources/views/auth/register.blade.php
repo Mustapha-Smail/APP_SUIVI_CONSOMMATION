@@ -13,7 +13,7 @@
     @endif
 
     <div class="container auth">
-        <form action="{{route('register')}}" method="POST" class="w-50 shadow form">
+        <form action="{{route('register')}}" method="POST" class="w-100 shadow form">
             <!-- Coordonnées -->
             @csrf
             <div class="card text-left">

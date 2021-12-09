@@ -32,7 +32,7 @@
 
                                         <div class="form-group">
                                           <label for="num_boite">N° Boîte</label>
-                                          <input type="number" name="num_boite" id="num_boite" class="form-control">
+                                          <input type="number" name="num_boite" id="num_boite" class="form-control" required>
                                         </div>
 
                                         <div class="form-group">
@@ -44,22 +44,22 @@
 
                                         <div class="form-group">
                                             <label for="num_rue">N° rue</label>
-                                            <input type="number" name="num_rue" class="form-control" id="num_rue" readonly>
+                                            <input type="number" name="num_rue" class="form-control" id="num_rue" readonly required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="rue">Rue</label>
-                                            <input type="text" name="rue" class="form-control" id="rue" readonly>
+                                            <input type="text" name="rue" class="form-control" id="rue" readonly required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="code_postal">Code Postal</label>
-                                            <input type="number" name="code_postal" class="form-control" id="code_postal" readonly>
+                                            <input type="number" name="code_postal" class="form-control" id="code_postal" readonly required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="ville">Ville</label>
-                                            <input type="text" name="ville" class="form-control" id="ville" readonly>
+                                            <input type="text" name="ville" class="form-control" id="ville" readonly required>
                                         </div>
 
                                         <div class="form-check form-switch">
@@ -76,17 +76,17 @@
 
                                         <div class="form-group">
                                             <label for="debut_location">Date de début de location</label>
-                                            <input type="date" name="debut_location" id="debut_location" class="form-control" >
+                                            <input type="date" name="debut_location" id="debut_location" class="form-control"  required>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label for="fin_location">Date de fin de location</label>
-                                            <input type="date" name="fin_location" id="fin_location" class="form-control" >
+                                            <input type="date" name="fin_location" id="fin_location" class="form-control"  required>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label for="nombre_habitants">Nombre d'habitants</label>
-                                            <input type="number" name="nombre_habitants" id="nombre_habitants" class="form-control" >
+                                            <input type="number" name="nombre_habitants" id="nombre_habitants" class="form-control"  required>
                                         </div>
 
                                         <div class="form-group">
@@ -119,7 +119,7 @@
                                     <div class="card-body" id="form-pieces">
                                         <div class="form-group" id="form-group-piece_1">
                                             <label for="piece_1">Piece 1</label>
-                                            <input type="text" name="piece_1" id="piece_1" class="form-control" placeholder=""> <br>
+                                            <input type="text" name="piece_1" id="piece_1" class="form-control" placeholder="libelle" required> <br>
                                             <select name="type_piece_1" id="type_piece_1" class="form-control">
                                                 @forelse ($types_piece as $type_piece)
                                                     <option value={{$type_piece->id}}>{{$type_piece->libelle}}</option>
@@ -220,7 +220,7 @@
             $('#add-piece').on('click', ()=>{
                 nbPieces++; 
 
-                $('#form-pieces').append('<div class="form-group" id="form-group-piece_'+nbPieces+'"><label for="piece_'+nbPieces+'">Piece '+nbPieces+'</label><input type="text" name="piece_'+nbPieces+'" id="piece_'+nbPieces+'" class="form-control" placeholder=""><br><select name="type_piece_'+nbPieces+'" id="type_piece_'+nbPieces+'" class="form-control">@forelse ($types_piece as $type_piece)<option value={{$type_piece->id}}>{{$type_piece->libelle}}</option>@empty<option></option>@endforelse</select></div>'); 
+                $('#form-pieces').append('<div class="form-group" id="form-group-piece_'+nbPieces+'"><label for="piece_'+nbPieces+'">Piece '+nbPieces+'</label><input type="text" name="piece_'+nbPieces+'" id="piece_'+nbPieces+'" class="form-control" placeholder="" required><br><select name="type_piece_'+nbPieces+'" id="type_piece_'+nbPieces+'" class="form-control">@forelse ($types_piece as $type_piece)<option value={{$type_piece->id}}>{{$type_piece->libelle}}</option>@empty<option></option>@endforelse</select></div>'); 
 
 
                 if($('#delete-piece').length < 1){

@@ -27,21 +27,28 @@
                     @forelse ($appartements as $appartement)
                         <div class="card w-100 shadow">
                         <div class="card-header">
-                            {{$appartement->num_boite}}
+                            {{$appartement->maison->num_rue}}
+                            {{$appartement->maison->nom_rue.','}}
+                            appartement
+                            {{$appartement->num_boite.','}}
+                            {{$appartement->maison->ville->code_postal}}
+                            {{$appartement->maison->ville->nom}}
                         </div>
                         <div class="card-body">
                             <div class="card-title">
                                 <h6>{{$appartement->typeappartement->libelle}}</h6>
                                 <p>{{$appartement->nombre_habitants}} habitants</p>
                             </div>
-                            <p class="card-text">
-                                Depuis, {{ Carbon\Carbon::parse($appartement->created_at)->format('Y-m-d') }}
-                                {{$appartement->securite->libelle}}
-                            </p>
-                            <a href="#" class="btn btn-primary float-right">
-                                <span>
-                                    Consommation 
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{route('locataire.emissions', [$appartement->id])}}" class="btn btn-danger float-right ">
+                                Emissions
+                                <span class="material-icons">
+                                    forward
                                 </span>
+                            </a>
+                            <a href="{{route('locataire.consommations', [$appartement->id])}}" class="btn btn-warning float-right mr-3">
+                                Consommations
                                 <span class="material-icons">
                                     forward
                                 </span>

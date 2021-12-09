@@ -134,7 +134,7 @@
 
 
                 if($('#delete-piece').length < 1){
-                    $('#buttons-pieces').append('<button type="button" class="m-2 btn btn-md btn-danger float-right justify-content-center align-items-center" id="delete-piece" onClick="deletePiece()"><span class="material-icons">delete</span></button>');
+                    $('#buttons-pieces').append('<button type="button" class="m-2 btn btn-md btn-danger float-right justify-content-center align-items-center" id="delete-piece"><span class="material-icons">delete</span></button>');
                     $('#delete-piece').on('click', ()=>{
                         if (nbPieces > 1) {
                             $('#form-group-piece_'+nbPieces).remove();

@@ -52,7 +52,7 @@ h6 {
 }
 
 .side-menu .brand-name {
-    height: 7vh;
+    height: 10vh;
     width: 15vw;
     display: flex;
     align-items: center;
@@ -64,11 +64,15 @@ h6 {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%; 
+    height: 100%; 
+    padding: 0; 
 }
-
-.side-menu li {
-    font-size: 1.5rem;
-    padding: 0.62rem 1.5rem;
+.side-menu li a {
+    text-decoration: none;
+    font-family: var(--font-corps);
+    font-size: 1.3rem;
+    padding: 0.62rem 1rem;
     color: var(--color-2);
     cursor: pointer;
     display: flex;
@@ -83,29 +87,22 @@ h6 {
     position: absolute;
     bottom: 2rem;
     width: 100%;
+    color: var(--color-2);
 }
 
-.side-menu li:hover,
-.side-menu li a:hover {
+.side-menu li a:hover,
+.side-menu li:last-child:hover {
     background-color: var(--color-2);
     color: var(--color-4)
 }
-
-.side-menu li a {
-    font-size: 1.5rem;
-    color: var(--color-2);
-    text-decoration: none; 
-    font-family: var(--font-corps); 
-}
-
 
 .container {
     position: absolute;
     min-width: 85vw;
     max-width: 85vw;
-    min-height: 93vh;
+    min-height: 90vh;
     right: 0;
-    top: 7vh;
+    top: 10vh;
 }
 
 .header {
@@ -114,7 +111,7 @@ h6 {
     top: 0;
     right: 0;
     width: 85vw;
-    height: 7vh;
+    height: 10vh;
     padding: 0 1rem 0 2rem;
     background-color: var(--color-4);
     display: flex;
@@ -184,5 +181,14 @@ h6 {
         width: 2.5rem;
         height: 2.5rem;
         font-size: 2.5rem;
+    }
+
+    .header .nav{
+        display: none;
+    }
+
+    .header .dropdown {
+        position: absolute; 
+        right: 1%;
     }
 }

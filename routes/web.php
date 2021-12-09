@@ -51,7 +51,7 @@ Route::post('/ajout-appareils-locataire/{id_piece}',[LocataireController::class,
 Route::post('/consommation',[LocataireController::class, 'consommation'])->middleware(['auth','verified'])->name('locataire.consommation');
 Route::get('/consommations/{id_appartement}',[LocataireController::class, 'getConsommations'])->middleware(['auth','verified'])->name('locataire.consommations');
 Route::post('/consommations/{id_appartement}',[LocataireController::class, 'postConsommations'])->middleware(['auth','verified']);
+Route::get('/emissions/{id_appartement}',[LocataireController::class, 'getEmissions'])->middleware(['auth','verified'])->name('locataire.emissions');
+Route::post('/emissions/{id_appartement}',[LocataireController::class, 'postEmissions'])->middleware(['auth','verified']);
 
 require __DIR__.'/auth.php';
-
-Route::get('/villes', [VilleController::class, 'index'])->name('villes'); 

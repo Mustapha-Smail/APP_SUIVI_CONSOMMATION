@@ -54,7 +54,7 @@
                                                 @endforelse
                                                 </select>
                                                 <br>
-                                                <input type="number" name="conso_heure_ressource_1" id="conso_heure_ressource_1" class="form-control" placeholder="consommation/heure">
+                                                <input type="number" name="conso_heure_ressource_1" id="conso_heure_ressource_1" class="form-control" placeholder="consommation/heure" required>
                                             </div>
                                             <br>
                                         </div>
@@ -103,7 +103,7 @@
             $('#add-ressource').on('click', ()=>{
                 nbressources++; 
 
-                $('#form-group-ressources').append('<div class="form-group" id="form-group-ressource_'+nbressources+'"><select name="ressource_'+nbressources+'" id="ressource_'+nbressources+'" class="form-control">@forelse ($ressources as $ressource)<option value={{$ressource->id}}>{{$ressource->libelle}}</option>@empty<option></option>@endforelse</select><br><input type="number" name="conso_heure_ressource_'+nbressources+'" id="conso_heure_ressource_'+nbressources+'" class="form-control" placeholder="consommation/heure"></div><br>'); 
+                $('#form-group-ressources').append('<div class="form-group" id="form-group-ressource_'+nbressources+'"><select name="ressource_'+nbressources+'" id="ressource_'+nbressources+'" class="form-control">@forelse ($ressources as $ressource)<option value={{$ressource->id}}>{{$ressource->libelle}}</option>@empty<option></option>@endforelse</select><br><input type="number" name="conso_heure_ressource_'+nbressources+'" id="conso_heure_ressource_'+nbressources+'" class="form-control" placeholder="consommation/heure" required></div><br>'); 
 
 
                 if($('#delete-ressource').length < 1){
@@ -128,7 +128,7 @@
             $('#add-substance').on('click', ()=>{
                 nbsubstances++; 
 
-                $('#form-group-substances').append('<div class="form-group" id="form-group-substance_'+nbsubstances+'"><select name="substance_'+nbsubstances+'" id="substance_'+nbsubstances+'" class="form-control">@forelse ($substances as $substance)<option value={{$substance->id}}>{{$substance->libelle}}</option>@empty<option></option>@endforelse</select><br><input type="number" name="conso_heure_substance_'+nbsubstances+'" id="conso_heure_substance_'+nbsubstances+'" class="form-control" placeholder="consommation/heure"></div><br>'); 
+                $('#form-group-substances').append('<div class="form-group" id="form-group-substance_'+nbsubstances+'"><select name="substance_'+nbsubstances+'" id="substance_'+nbsubstances+'" class="form-control">@forelse ($substances as $substance)<option value={{$substance->id}}>{{$substance->libelle}}</option>@empty<option></option>@endforelse</select><br><input type="number" name="conso_heure_substance_'+nbsubstances+'" id="conso_heure_substance_'+nbsubstances+'" class="form-control" placeholder="emission/heure" required></div><br>'); 
 
 
                 if($('#delete-substance').length < 1){

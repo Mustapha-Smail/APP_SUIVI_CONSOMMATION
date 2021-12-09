@@ -33,22 +33,14 @@ class LocataireController extends Controller
             abort(403); 
         }
 
-        $appartements = DB::table('locataires')
-                            ->join('appartements', 'locataires.appartement_id', 'appartements.id')
-                            ->select(
-                                'appartements.*', 
-                                'locataires.debut_location', 
-                                'locataires.fin_location', 
-                            )
-                            ->where([
-                                ['locataires.user_id', '=', $user->id], 
-                                ['locataires.fin_location', '>', Carbon::now()],
-                            ])
-                            ->get(); 
+        $locations = Locataire::where([
+            ['user_id', $user->id],
+            ['fin_location', '>', Carbon::now()],
+        ])->get();
 
-        // dd($appartements->typeappartement); 
+        // dd($locataires); 
 
-        return view('locataire.appartements', compact('user', 'appartements'));
+        return view('locataire.appartements', compact('user', 'locations'));
     }
 
     public function pieces($appartement_id){
@@ -356,7 +348,7 @@ class LocataireController extends Controller
     public function getConsommations($id_appartement){
         $appartement = Appartement::findOrFail($id_appartement);
         
-        if((! Gate::allows('get-locataire-pieces', $appartement) || (Gate::allows('admin')))){
+        if(Gate::allows('admin')){
             abort(403); 
         }
 
@@ -370,12 +362,38 @@ class LocataireController extends Controller
     public function postConsommations(Request $request, $id_appartement, LocataireSuiviConsommationParMois $chart){
         $appartement = Appartement::findOrFail($id_appartement);
         
-        if((! Gate::allows('get-locataire-pieces', $appartement) || (Gate::allows('admin')))){
+        if(Gate::allows('admin')){
             abort(403); 
         }
 
         $chart = $chart->build($appartement->id, $request->ressource); 
         return redirect()->route('locataire.consommations', [$appartement->id])->with(['chart' => $chart]); 
     }
+
+    public function getEmissions($id_appartement){
+        $appartement = Appartement::findOrFail($id_appartement);
+        
+        if(Gate::allows('admin')){
+            abort(403); 
+        }
+
+        
+        $substances = Matiere::where('ressource', false)->get();
+        // dd($substances);
+
+        return view('locataire.emissions', compact('substances'));
+    }
+
+    public function postEmissions(Request $request, $id_appartement, LocataireSuiviConsommationParMois $chart){
+        $appartement = Appartement::findOrFail($id_appartement);
+        
+        if(Gate::allows('admin')){
+            abort(403); 
+        }
+
+        $chart = $chart->build($appartement->id, $request->substance); 
+        return redirect()->route('locataire.emissions', [$appartement->id])->with(['chart' => $chart]); 
+    }
+
 
 }
