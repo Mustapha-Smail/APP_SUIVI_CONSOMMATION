@@ -10,6 +10,7 @@ use App\Charts\ProprietaireEmissionChart;
 use App\Charts\UsersAgeChart;
 use App\Charts\UsersByAgeChart;
 use App\Models\Locataire;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -51,6 +52,13 @@ class DashboardController extends Controller
         $user = Auth::user(); 
         $adresse_fixe = Locataire::where([['user_id', $user->id], ['fixe', true]])->orderBy('updated_at', 'desc')->first(); 
         return view('profile', compact('user', 'adresse_fixe'));
+    }
+
+    public function users(){
+        $users = User::where('admin', false)->get(); 
+        // $users = User::all(); 
+
+        return view('admin.users', compact('users')); 
     }
 
     

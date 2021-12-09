@@ -26,6 +26,7 @@ Route::get('/profile', [DashboardController::class, 'profile'])->middleware(['au
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
 
 // ADMIN
+Route::get('/users', [DashboardController::class, 'users'])->middleware(['auth','verified'])->name('admin.users'); 
 Route::get('/users-age', [DashboardController::class, 'usersage'])->middleware(['auth','verified'])->name('admin.usersage');
 Route::post('/users-age', [DashboardController::class, 'searchusersage'])->middleware(['auth','verified']);
 
