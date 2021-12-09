@@ -14,7 +14,7 @@
             </div>
             @if ($user)
             <div class="row">
-                <div class="col-6 offset-3">
+                <div class="col-6 offset-3" id="profile">
                     <form action="#" method="post" class="w-100">
                             <div class="card">
                                 <div class="card-body">
@@ -84,4 +84,15 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            // console.log('hello');
+            $('#profile').removeClass('col-6 offset-3'); 
+            $('#profile').addClass('col-12'); 
+            
+        } 
+    </script>
 @endsection
