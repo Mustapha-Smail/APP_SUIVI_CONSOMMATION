@@ -21,6 +21,16 @@
                 <span class="side-li-text">Profile</span>
             </a>
         </li>
+        @if (Auth::user()->admin)
+         <li>
+            <a href="{{route('admin.users')}}">
+                <span class="material-icons" title="Groups">
+                    groups
+                </span>
+                <span class="side-li-text">Utilisateurs</span>
+            </a>
+        </li>   
+        @else
         <li>
             <a href="{{route('proprietaire.maisons')}}">
                 <span class="material-icons" title="Home">
@@ -37,6 +47,7 @@
                 <span class="side-li-text">Mes locations</span>
             </a>
         </li>
+        @endif
         <li>
             <form action="{{route('logout')}}" method="post" id="logout">
                 @csrf
