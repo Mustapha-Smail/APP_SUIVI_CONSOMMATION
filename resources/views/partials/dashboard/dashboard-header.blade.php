@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
