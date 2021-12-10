@@ -177,23 +177,6 @@ class LocataireController extends Controller
             ]);
 
         
-        // $request->nb_pieces; 
-        for ($i=0; $i < $request->nb_pieces; $i++) { 
-    
-            $k = $i+1; 
-            $type_piece = 'type_piece_'.$k; 
-            $piece = 'piece_'.$k; 
-        
-            // dd($request->$type_piece); 
-
-            $nouvelle_piece = Piece::create([
-                                'libelle' => $request->$piece,
-                                'typepiece_id' => $request->$type_piece,
-                                'appartement_id' => $appartement->id,
-                                'created_at' => Carbon::now(),
-                                'updated_at' => Carbon::now()
-                            ]); 
-        }
 
         return redirect()->route('locataire.appartements'); 
     }

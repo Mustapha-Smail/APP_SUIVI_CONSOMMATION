@@ -41,7 +41,13 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{route('locataire.emissions', [$appartement->id])}}" class="btn btn-danger float-right ">
+                            <a href="{{route('proprietaire.pieces', [$appartement->id])}}" class="btn btn-primary float-right mr-3">
+                                Pieces
+                                <span class="material-icons">
+                                    forward
+                                </span>
+                            </a>
+                            <a href="{{route('locataire.emissions', [$appartement->id])}}" class="btn btn-danger float-right mr-3">
                                 Emissions
                                 <span class="material-icons">
                                     forward

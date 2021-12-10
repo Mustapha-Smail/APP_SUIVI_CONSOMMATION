@@ -55,6 +55,20 @@ class ProprietaireController extends Controller
 
     }
 
+    public function pieces($appartement_id){
+        $appartement = Appartement::find($appartement_id); 
+
+        if((! Gate::allows('get-proprietaire-appartements', $appartement->maison) || (Gate::allows('admin')))){
+            abort(403); 
+        }
+
+        $pieces = $appartement->pieces; 
+
+        // dd($pieces); 
+
+        return view('proprietaire.pieces', compact('pieces'));
+    }
+
     public function ajoutMaison(){
 
         if(Gate::allows('admin')){ //Admin ne peut pas gerer des proprietes

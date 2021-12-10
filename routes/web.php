@@ -33,6 +33,7 @@ Route::post('/users-age', [DashboardController::class, 'searchusersage'])->middl
 // PROPRIETAIRE 
 Route::get('/maisons', [ProprietaireController::class, 'index'])->middleware(['auth','verified'])->name('proprietaire.maisons');
 Route::get('/appartements/{maison_id}', [ProprietaireController::class, 'appartements'])->middleware(['auth','verified'])->name('proprietaire.appartements');
+Route::get('/pieces-proprietaire/{appartement_id}', [ProprietaireController::class, 'pieces'])->middleware(['auth', 'verified'])->name('proprietaire.pieces'); 
 Route::get('/ajout-maison', [ProprietaireController::class, 'ajoutMaison'])->middleware(['auth','verified'])->name('proprietaire.ajout-maison');
 Route::post('/ajout-maison', [ProprietaireController::class, 'storeMaison'])->middleware(['auth','verified']);
 Route::get('/ajout-appartement-proprietaire/{maison_id}', [ProprietaireController::class, 'ajoutAppartementProprietaire'])->middleware(['auth','verified'])->name('proprietaire.ajout-appartement');
