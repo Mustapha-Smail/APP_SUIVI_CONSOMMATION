@@ -211,6 +211,8 @@ class ProprietaireController extends Controller
 
     public function storeAppartementProprietaire(Request $request, $maison_id){
 
+        // dd($request->nb_pieces); 
+
         $maison = Maison::find($maison_id); 
 
         // dd($maison); 

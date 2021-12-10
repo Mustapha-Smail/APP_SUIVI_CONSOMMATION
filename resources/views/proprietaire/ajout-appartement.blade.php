@@ -127,6 +127,7 @@
 
             let nbPieces = 1; 
 
+
             $('#add-piece').on('click', ()=>{
                 nbPieces++; 
 
@@ -144,8 +145,12 @@
                                 $('#delete-piece').remove(); 
                             }
                         }
+                        $('#nb_pieces').val(nbPieces); 
+
                     });
                 }
+                // console.log('apres delete '+nbPieces);
+
                 $('#nb_pieces').val(nbPieces); 
             }); 
         }); 

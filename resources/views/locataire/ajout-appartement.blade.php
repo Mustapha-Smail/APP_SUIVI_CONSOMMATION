@@ -234,6 +234,9 @@
                                 $('#delete-piece').remove(); 
                             }
                         }
+        
+                        $('#nb_pieces').val(nbPieces); 
+
                     });
                 }
                 $('#nb_pieces').val(nbPieces); 

@@ -116,11 +116,13 @@
                             if (nbressources < 2) {
                                 $('#delete-ressource').remove(); 
                             }
+                            $('#nb_ressources').val(nbressources); 
+
                         }
                     });
                 }
                 $('#nb_ressources').val(nbressources); 
-                console.log('ressources: '+$('#nb_ressources').val());
+                // console.log('ressources: '+$('#nb_ressources').val());
             }); 
 
             let nbsubstances = 0; 
@@ -140,10 +142,13 @@
                         if (nbsubstances < 1) {
                             $('#delete-substance').remove(); 
                         }
+        
+                        $('#nb_substances').val(nbsubstances); 
+
                     });
                 }
                 $('#nb_substances').val(nbsubstances); 
-                console.log('substances: '+$('#nb_substances').val());
+                // console.log('substances: '+$('#nb_substances').val());
             }); 
         }); 
     </script>
