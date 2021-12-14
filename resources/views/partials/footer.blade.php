@@ -20,7 +20,7 @@
                 <a class="link-dark" href="{{route('register')}}">S'inscrire</a>
             </li>
             <li class="list-group-item" style="border:0; ">
-                <a class="link-dark" href="#">Contact</a>
+                <a class="link-dark" href="{{route('contact')}}">Contact</a>
             </li>
             </ul>
         </div>

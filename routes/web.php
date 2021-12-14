@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('accueil');
 })->middleware(['guest'])->name('accueil');
 
+Route::get('/contact', function() {
+    return view('contact'); 
+})->middleware(['guest'])->name('contact'); 
+
 // DASHBOARD Gle
 Route::get('/profile', [DashboardController::class, 'profile'])->middleware(['auth','verified'])->name('profile');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
