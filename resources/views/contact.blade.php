@@ -4,7 +4,7 @@
     <div class="container">
         <div class="container-body p-5">
             <div class="row">
-                <div class="col-6 offset-3" id="profile">
+                <div class="col-6 offset-3" id="contact">
                     <form action="mailto:cqc.letrio@gmail.com" method="get" class="w-100">
                         @csrf
                         <div class="card">
@@ -50,4 +50,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            // console.log('hello');
+            $('#contact').removeClass('col-6 offset-3'); 
+            $('#contact').addClass('col-12'); 
+            
+        } 
+    </script>
 @endsection
